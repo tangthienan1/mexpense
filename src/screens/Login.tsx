@@ -2,6 +2,8 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
+import Config from 'react-native-config';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface LoginProps {
     navigation?: any;
@@ -9,7 +11,7 @@ interface LoginProps {
 
 const Login: FC<LoginProps> = ({ navigate }) => {
     GoogleSignin.configure({
-        webClientId: '8142284106-q69q95qrar7031cvrru2qg7cok31u8fp.apps.googleusercontent.com',
+        webClientId: Config.FIREBASE_WEB_CLIENT,
     });
     const signInWithGoogle = async () => {
         // Check if your device supports Google Play
@@ -25,13 +27,15 @@ const Login: FC<LoginProps> = ({ navigate }) => {
         });
     };
     return (
-        <GoogleSigninButton
-            style={style.google}
-            size={GoogleSigninButton.Size.Wide}
-            color={GoogleSigninButton.Color.Dark}
-            onPress={signInWithGoogle}
-            disabled={false}
-        />
+        <SafeAreaView>
+            <GoogleSigninButton
+                style={style.google}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={signInWithGoogle}
+                disabled={false}
+            />
+        </SafeAreaView>
     );
 };
 const style = StyleSheet.create({

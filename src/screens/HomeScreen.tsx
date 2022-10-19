@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Button, Text } from 'react-native';
-import Config from 'react-native-config';
 
 interface HomeScreenProps {
     navigation: any;
