@@ -4,7 +4,6 @@ import React, { FC } from 'react';
 import {
     Image,
     KeyboardAvoidingView,
-    Pressable,
     ScrollView,
     StyleSheet,
     Text,
@@ -16,11 +15,11 @@ import Config from 'react-native-config';
 import LinearGradient from 'react-native-linear-gradient';
 import { COLORS, FONTS, icons, SIZES } from '../consts';
 
-interface LoginProps {
+interface SignUpProps {
     navigation?: any;
 }
 
-const Login: FC<LoginProps> = ({ navigation }) => {
+const SignUp: FC<SignUpProps> = ({ navigation }) => {
     GoogleSignin.configure({
         webClientId: Config.FIREBASE_WEB_CLIENT,
     });
@@ -40,8 +39,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     };
 
     return (
-        <KeyboardAvoidingView style={style.login}>
-            <LinearGradient colors={[COLORS.lime, COLORS.emerald]} style={style.login}>
+        <KeyboardAvoidingView style={style.SignUp}>
+            <LinearGradient colors={[COLORS.lime, COLORS.emerald]} style={style.SignUp}>
                 <ScrollView>
                     {/* Logo */}
                     <View style={style.logo}>
@@ -49,30 +48,32 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                     </View>
 
                     <View style={style.title}>
-                        <Text style={{ color: COLORS.lightGreen, ...FONTS.h1 }}>Login</Text>
+                        <Text style={{ color: COLORS.lightGreen, ...FONTS.h1 }}>SignUp</Text>
                         <Text style={{ color: COLORS.lightGreen }}>
-                            Please enter the detail login
+                            Please enter the detail to get started
                         </Text>
                     </View>
 
                     <View style={style.form}>
-                        <Text style={style.inputTile}>Email</Text>
+                        <Text style={style.inputTile}>Name</Text>
+                        <TextInput style={style.textInput} />
+
+                        <Text style={style.inputTile}>Email ID</Text>
                         <TextInput style={style.textInput} />
 
                         <Text style={style.inputTile}>Password</Text>
                         <TextInput secureTextEntry={true} style={style.textInput} />
 
-                        <Pressable style={style.forgotPassword}>
-                            <Text style={style.inputTile}>Forgot Password?</Text>
-                        </Pressable>
+                        <Text style={style.inputTile}>Re-Enter Password</Text>
+                        <TextInput secureTextEntry={true} style={style.textInput} />
                     </View>
 
                     <View style={style.buttonWrapper}>
                         <TouchableOpacity
-                            style={style.loginButton}
-                            onPress={() => navigation.navigate('Home')}
+                            style={style.SignUpButton}
+                            onPress={() => navigation.navigate('Login')}
                         >
-                            <Text style={{ color: COLORS.white, ...FONTS.h3 }}>Login</Text>
+                            <Text style={{ color: COLORS.white, ...FONTS.h3 }}>SignUp</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -87,11 +88,11 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
                     <TouchableOpacity
                         style={style.newUser}
-                        onPress={() => navigation.navigate('SignUp')}
+                        onPress={() => navigation.navigate('Login')}
                     >
                         <Text style={style.inputTile}>
-                            New User?
-                            <Text style={{ color: COLORS.black }}>Sign Up</Text>
+                            Already have an account?
+                            <Text style={{ color: COLORS.black }}>Login</Text>
                         </Text>
                     </TouchableOpacity>
                 </ScrollView>
@@ -118,9 +119,9 @@ const style = StyleSheet.create({
         ...FONTS.h3,
     },
     buttonWrapper: {
-        marginTop: SIZES.padding * 2,
+        marginTop: SIZES.padding,
     },
-    loginButton: {
+    SignUpButton: {
         marginHorizontal: SIZES.padding,
         height: 40,
         borderRadius: 20,
@@ -162,11 +163,11 @@ const style = StyleSheet.create({
 
         elevation: 5,
 
-        marginTop: SIZES.body1 * 5,
+        marginTop: SIZES.body1 * 2,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    login: {
+    SignUp: {
         flex: 1,
     },
     google: {
@@ -174,4 +175,4 @@ const style = StyleSheet.create({
         width: 192,
     },
 });
-export default Login;
+export default SignUp;

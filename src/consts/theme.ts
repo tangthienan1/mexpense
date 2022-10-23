@@ -6,12 +6,16 @@ export const COLORS = {
     secondary: '#5D2DFD', // Dark purple
 
     white: '#fff',
-    black: '#000000',
-    green: '#37E39F',
+    black: '#1E1F20',
+    green: '#21E582',
     red: '#F9A8BA',
     gray: '#6A6A6A',
     lightGray: '#dbdbdb',
     lightGray1: '#f5f6fa',
+    lightGreen: '#E6FEF0',
+
+    lime: '#00BA63',
+    emerald: '#2BC978',
 };
 export const SIZES = {
     // global sizes
