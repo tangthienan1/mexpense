@@ -1,4 +1,4 @@
 import icons from './icons';
-import theme, { COLORS, FONTS, SIZES } from './theme';
+import theme, { MCOLORS, MFONTS, MSIZES } from './theme';
 
-export { icons, theme, COLORS, SIZES, FONTS };
+export { icons, theme, MCOLORS, MSIZES, MFONTS };

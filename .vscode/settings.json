@@ -1,6 +1,10 @@
 {
     "cSpell.words": [
         "consts",
-        "greentick"
+        "greentick",
+        "MCOLORS",
+        "MFONTS",
+        "MSIZES",
+        "Roboto"
     ]
 }

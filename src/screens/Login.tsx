@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import Config from 'react-native-config';
 import LinearGradient from 'react-native-linear-gradient';
-import { COLORS, FONTS, icons, SIZES } from '../consts';
+import { MCOLORS, MFONTS, icons, MSIZES } from '../consts';
 
 interface LoginProps {
     navigation?: any;
@@ -41,7 +41,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView style={style.login}>
-            <LinearGradient colors={[COLORS.lime, COLORS.emerald]} style={style.login}>
+            <LinearGradient colors={[MCOLORS.lime, MCOLORS.emerald]} style={style.login}>
                 <ScrollView>
                     {/* Logo */}
                     <View style={style.logo}>
@@ -49,8 +49,8 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                     </View>
 
                     <View style={style.title}>
-                        <Text style={{ color: COLORS.lightGreen, ...FONTS.h1 }}>Login</Text>
-                        <Text style={{ color: COLORS.lightGreen }}>
+                        <Text style={{ color: MCOLORS.lightGreen, ...MFONTS.h1 }}>Login</Text>
+                        <Text style={{ color: MCOLORS.lightGreen }}>
                             Please enter the detail login
                         </Text>
                     </View>
@@ -72,7 +72,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                             style={style.loginButton}
                             onPress={() => navigation.navigate('Home')}
                         >
-                            <Text style={{ color: COLORS.white, ...FONTS.h3 }}>Login</Text>
+                            <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>Login</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -91,7 +91,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                     >
                         <Text style={style.inputTile}>
                             New User?
-                            <Text style={{ color: COLORS.black }}>Sign Up</Text>
+                            <Text style={{ color: MCOLORS.black }}>Sign Up</Text>
                         </Text>
                     </TouchableOpacity>
                 </ScrollView>
@@ -104,10 +104,10 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     newUserText: {
-        color: COLORS.lightGreen,
+        color: MCOLORS.lightGreen,
     },
     forgotPasswordWrapper: {
-        marginTop: SIZES.padding * 2,
+        marginTop: MSIZES.padding * 2,
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -115,18 +115,18 @@ const style = StyleSheet.create({
         alignItems: 'flex-end',
         textAlign: 'right',
 
-        ...FONTS.h3,
+        ...MFONTS.h3,
     },
     buttonWrapper: {
-        marginTop: SIZES.padding * 2,
+        marginTop: MSIZES.padding * 2,
     },
     loginButton: {
-        marginHorizontal: SIZES.padding,
+        marginHorizontal: MSIZES.padding,
         height: 40,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: COLORS.black,
+        backgroundColor: MCOLORS.black,
     },
     textInput: {
         marginVertical: 12,
@@ -134,25 +134,25 @@ const style = StyleSheet.create({
         height: 40,
 
         borderWidth: 1,
-        borderColor: COLORS.lightGreen,
+        borderColor: MCOLORS.lightGreen,
         borderRadius: 10,
     },
     inputTile: {
-        color: COLORS.lightGreen,
-        ...FONTS.h3,
+        color: MCOLORS.lightGreen,
+        ...MFONTS.h3,
     },
     form: {
-        marginTop: SIZES.padding * 2,
-        marginHorizontal: SIZES.padding,
+        marginTop: MSIZES.padding * 2,
+        marginHorizontal: MSIZES.padding,
     },
     title: {
-        marginTop: SIZES.padding * 2,
-        color: COLORS.white,
+        marginTop: MSIZES.padding * 2,
+        color: MCOLORS.white,
         flex: 1,
         alignItems: 'center',
     },
     logo: {
-        shadowColor: COLORS.primary,
+        shadowColor: MCOLORS.primary,
         shadowOffset: {
             width: 0,
             height: 10,
@@ -162,7 +162,7 @@ const style = StyleSheet.create({
 
         elevation: 5,
 
-        marginTop: SIZES.body1 * 5,
+        marginTop: MSIZES.body1 * 5,
         alignItems: 'center',
         justifyContent: 'center',
     },

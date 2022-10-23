@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '../constants';
-import { Home } from '../screens';
+import { MCOLORS } from '../constants';
+import { Home } from '../screens/Home';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +21,7 @@ const Tabs = () => {
 
 const styles = StyleSheet.create({
     shadow: {
-        shadowColor: COLORS.primary,
+        shadowColor: MCOLORS.primary,
         shadowOffset: {
             width: 0,
             height: 10,
