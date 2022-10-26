@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import { Home } from './src/screens/Home';
+import Tabs from './src/navigation/tabs';
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
 
@@ -14,10 +14,16 @@ const App = () => {
     }, []);
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                }}
+                initialRouteName="Login"
+            >
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="Home" component={Home} />
+                {/* Tabs */}
+                <Stack.Screen name="Home" component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
     );

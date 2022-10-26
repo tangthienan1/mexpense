@@ -1,35 +1,240 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-
-import { MCOLORS } from '../constants';
-import { Home } from '../screens/Home';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
+import { icons, MCOLORS } from '../consts';
+import Home from '../screens/Home';
+import Login from '../screens/Login';
 
 const Tab = createBottomTabNavigator();
 
+const NewTripButton = ({ children, onPress }) => {
+    return (
+        <View style={style.selectedBtnWrapper}>
+            <View style={style.curve}>
+                <View style={style.buttonSpacer} />
+                <Svg width={75} height={61} viewBox="0 0 75 61">
+                    <Path
+                        d="M75.2 0v61H0V0c4.1 0 7.4 3.1 7.9 7.1C10 21.7 22.5 33 37.7 33c15.2 0 27.7-11.3 29.7-25.9.5-4 3.9-7.1 7.9-7.1h-.1z"
+                        fill={MCOLORS.white}
+                    />
+                </Svg>
+                <View style={style.buttonSpacer} />
+            </View>
+
+            <TouchableOpacity style={style.newTripBtn} onPress={onPress}>
+                {children}
+            </TouchableOpacity>
+        </View>
+    );
+};
+
+const TabBarCustomButton = ({ accessibilityState, children, onPress }) => {
+    var isSelected = accessibilityState.selected;
+
+    if (isSelected) {
+        return (
+            <View style={style.selectedBtnWrapper}>
+                <View style={style.curve}>
+                    <View style={style.buttonSpacer} />
+                    <Svg width={75} height={61} viewBox="0 0 75 61">
+                        <Path
+                            d="M75.2 0v61H0V0c4.1 0 7.4 3.1 7.9 7.1C10 21.7 22.5 33 37.7 33c15.2 0 27.7-11.3 29.7-25.9.5-4 3.9-7.1 7.9-7.1h-.1z"
+                            fill={MCOLORS.white}
+                        />
+                    </Svg>
+                    <View style={style.buttonSpacer} />
+                </View>
+
+                <TouchableOpacity style={style.selectBtn} onPress={onPress}>
+                    {children}
+                </TouchableOpacity>
+            </View>
+        );
+    } else {
+        return (
+            <TouchableOpacity style={style.unSelectedBtn} activeOpacity={1} onPress={onPress}>
+                {children}
+            </TouchableOpacity>
+        );
+    }
+};
+
 const Tabs = () => {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Note" component={Home} />
-            <Tab.Screen name="NewTrip" component={Home} />
-            <Tab.Screen name="TripList" component={Home} />
-            <Tab.Screen name="Account" component={Home} />
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+            tabBarOptions={{
+                showLabel: false,
+                style: {
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    backgroundColor: 'transparent',
+                },
+            }}
+        >
+            <Tab.Screen
+                name="Home"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={icons.home}
+                            resizeMode="contain"
+                            style={{
+                                ...style.tabIcon,
+                                tintColor: focused ? MCOLORS.white : MCOLORS.secondary,
+                            }}
+                        />
+                    ),
+                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                }}
+            />
+            <Tab.Screen
+                name="Note"
+                component={Login}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={icons.note}
+                            resizeMode="contain"
+                            style={{
+                                ...style.tabIcon,
+                                tintColor: focused ? MCOLORS.white : MCOLORS.secondary,
+                            }}
+                        />
+                    ),
+                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                }}
+            />
+            <Tab.Screen
+                name="NewTrip"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={icons.plus}
+                            resizeMode="contain"
+                            style={{
+                                ...style.tabIcon,
+                                tintColor: focused ? MCOLORS.white : MCOLORS.secondary,
+                            }}
+                        />
+                    ),
+                    tabBarButton: (props) => <NewTripButton {...props} />,
+                }}
+            />
+            <Tab.Screen
+                name="TripList"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={icons.list}
+                            resizeMode="contain"
+                            style={{
+                                ...style.tabIcon,
+                                tintColor: focused ? MCOLORS.white : MCOLORS.secondary,
+                            }}
+                        />
+                    ),
+                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                }}
+            />
+            <Tab.Screen
+                name="Account"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={icons.account}
+                            resizeMode="contain"
+                            style={{
+                                ...style.tabIcon,
+                                tintColor: focused ? MCOLORS.white : MCOLORS.secondary,
+                            }}
+                        />
+                    ),
+                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                }}
+            />
         </Tab.Navigator>
     );
 };
 
-const styles = StyleSheet.create({
-    shadow: {
+const style = StyleSheet.create({
+    newTripBtn: {
+        top: -30.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 70,
+        height: 70,
+        borderRadius: 50,
+        backgroundColor: MCOLORS.primary,
+
         shadowColor: MCOLORS.primary,
         shadowOffset: {
             width: 0,
             height: 10,
         },
-        shadowOpacity: 0.25,
+        shadowOpacity: 0.3,
         shadowRadius: 3.84,
 
-        elevation: 5,
+        elevation: 45,
+    },
+    selectBtn: {
+        top: -22.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: MCOLORS.primary,
+
+        shadowColor: MCOLORS.primary,
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 3.84,
+
+        elevation: 45,
+    },
+    unSelectedBtn: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        backgroundColor: MCOLORS.white,
+    },
+    selectedBtnWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        backgroundColor: MCOLORS.white,
+    },
+    tabIcon: {
+        width: 25,
+        height: 25,
+    },
+    curve: {
+        flexDirection: 'row',
+        position: 'absolute',
+        top: 0,
+        backgroundColor: MCOLORS.primary,
+        opacity: 0.2,
+    },
+    buttonSpacer: {
+        flex: 1,
+        backgroundColor: MCOLORS.white,
     },
 });
 

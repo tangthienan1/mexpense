@@ -16,91 +16,90 @@ import Config from 'react-native-config';
 import LinearGradient from 'react-native-linear-gradient';
 import { MCOLORS, MFONTS, icons, MSIZES } from '../consts';
 
-interface LoginProps {
+type LoginProps = {
     navigation?: any;
-}
+};
 
 const Login: FC<LoginProps> = ({ navigation }) => {
     GoogleSignin.configure({
         webClientId: Config.FIREBASE_WEB_CLIENT,
     });
 
-    const signInWithGoogle = async () => {
-        // Check if your device supports Google Play
-        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        // Sign-in the user with the credential
-        const user_signin = auth().signInWithCredential(googleCredential);
-        user_signin.then((res) => {
-            console.log({ res });
-        });
-    };
+    // const signInWithGoogle = async () => {
+    //     // Check if your device supports Google Play
+    //     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    //     // Get the users ID token
+    //     const { idToken } = await GoogleSignin.signIn();
+    //     // Create a Google credential with the token
+    //     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    //     // Sign-in the user with the credential
+    //     const user_signin = auth().signInWithCredential(googleCredential);
+    //     user_signin.then((res) => {
+    //         console.log({ res });
+    //     });
+    // };
 
     return (
-        <KeyboardAvoidingView style={style.login}>
-            <LinearGradient colors={[MCOLORS.lime, MCOLORS.emerald]} style={style.login}>
+        <KeyboardAvoidingView style={loginStyle.login}>
+            <LinearGradient colors={[MCOLORS.lime, MCOLORS.emerald]} style={loginStyle.login}>
                 <ScrollView>
                     {/* Logo */}
-                    <View style={style.logo}>
+                    <View style={loginStyle.logo}>
                         <Image source={icons.logo} />
                     </View>
 
-                    <View style={style.title}>
+                    <View style={loginStyle.title}>
                         <Text style={{ color: MCOLORS.lightGreen, ...MFONTS.h1 }}>Login</Text>
-                        <Text style={{ color: MCOLORS.lightGreen }}>
+                        <Text style={{ color: MCOLORS.lightGreen, ...MFONTS.body3 }}>
                             Please enter the detail login
                         </Text>
                     </View>
 
-                    <View style={style.form}>
-                        <Text style={style.inputTile}>Email</Text>
-                        <TextInput style={style.textInput} />
+                    <View style={loginStyle.form}>
+                        <Text style={loginStyle.inputTile}>Email</Text>
+                        <TextInput style={loginStyle.textInput} />
 
-                        <Text style={style.inputTile}>Password</Text>
-                        <TextInput secureTextEntry={true} style={style.textInput} />
+                        <Text style={loginStyle.inputTile}>Password</Text>
+                        <TextInput secureTextEntry={true} style={loginStyle.textInput} />
 
-                        <Pressable style={style.forgotPassword}>
-                            <Text style={style.inputTile}>Forgot Password?</Text>
+                        <Pressable style={loginStyle.forgotPassword}>
+                            <Text style={loginStyle.inputTile}>Forgot Password?</Text>
                         </Pressable>
-                    </View>
+                        <View style={loginStyle.buttonWrapper}>
+                            <TouchableOpacity
+                                style={loginStyle.loginButton}
+                                onPress={() => navigation.navigate('Home')}
+                            >
+                                <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>Login</Text>
+                            </TouchableOpacity>
+                        </View>
 
-                    <View style={style.buttonWrapper}>
-                        <TouchableOpacity
-                            style={style.loginButton}
-                            onPress={() => navigation.navigate('Home')}
-                        >
-                            <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>Login</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {/* Google button */}
-                    <GoogleSigninButton
-                        style={style.google}
+                        {/* Google button */}
+                        {/* <GoogleSigninButton
+                        style={loginStyle.google}
                         size={GoogleSigninButton.Size.Wide}
                         color={GoogleSigninButton.Color.Dark}
                         onPress={signInWithGoogle}
                         disabled={false}
-                    />
+                    /> */}
 
-                    <TouchableOpacity
-                        style={style.newUser}
-                        onPress={() => navigation.navigate('SignUp')}
-                    >
-                        <Text style={style.inputTile}>
-                            New User?
-                            <Text style={{ color: MCOLORS.black }}>Sign Up</Text>
-                        </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            style={loginStyle.bottomText}
+                            onPress={() => navigation.navigate('SignUp')}
+                        >
+                            <Text style={loginStyle.inputTile}>
+                                New User?
+                                <Text style={{ color: MCOLORS.black }}>Sign Up</Text>
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </LinearGradient>
         </KeyboardAvoidingView>
     );
 };
-const style = StyleSheet.create({
-    newUser: {
+export const loginStyle = StyleSheet.create({
+    bottomText: {
         alignItems: 'center',
     },
     newUserText: {
@@ -121,7 +120,6 @@ const style = StyleSheet.create({
         marginTop: MSIZES.padding * 2,
     },
     loginButton: {
-        marginHorizontal: MSIZES.padding,
         height: 40,
         borderRadius: 20,
         alignItems: 'center',
@@ -139,11 +137,11 @@ const style = StyleSheet.create({
     },
     inputTile: {
         color: MCOLORS.lightGreen,
-        ...MFONTS.h3,
+        ...MFONTS.body3,
     },
     form: {
         marginTop: MSIZES.padding * 2,
-        marginHorizontal: MSIZES.padding,
+        marginHorizontal: MSIZES.padding2 * 2,
     },
     title: {
         marginTop: MSIZES.padding * 2,
@@ -152,16 +150,6 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        shadowColor: MCOLORS.primary,
-        shadowOffset: {
-            width: 0,
-            height: 10,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 5,
-
         marginTop: MSIZES.body1 * 5,
         alignItems: 'center',
         justifyContent: 'center',
