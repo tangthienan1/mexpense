@@ -136,6 +136,7 @@ export const loginStyle = StyleSheet.create({
         borderRadius: 10,
     },
     inputTile: {
+        marginTop: MSIZES.padding,
         color: MCOLORS.lightGreen,
         ...MFONTS.body3,
     },

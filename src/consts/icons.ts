@@ -9,6 +9,8 @@ import account from '../assets/icons/account.png';
 import list from '../assets/icons/list.png';
 import note from '../assets/icons/note.png';
 import plus from '../assets/icons/plus.png';
+import emptyAvatar from '../assets/icons/emptyavatar.png';
+import search from '../assets/icons/search.png';
 
 export default {
     alarm,
@@ -22,4 +24,6 @@ export default {
     list,
     note,
     plus,
+    emptyAvatar,
+    search,
 };

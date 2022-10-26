@@ -1,5 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { SafeAreaView, View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import {
+    SafeAreaView,
+    View,
+    Text,
+    Image,
+    FlatList,
+    TouchableOpacity,
+    StyleSheet,
+} from 'react-native';
 import { MCOLORS, MSIZES, MFONTS, icons } from '../consts';
 
 const Home = () => {
@@ -62,6 +71,33 @@ const Home = () => {
         },
     ];
 
+    const majorExpenses = [
+        {
+            title: 'Food',
+            value: 200,
+        },
+        {
+            title: 'Taxi',
+            value: 200,
+        },
+        {
+            title: 'Gift',
+            value: 200,
+        },
+        {
+            title: 'Transport',
+            value: 200,
+        },
+        {
+            title: 'Hotel',
+            value: 300,
+        },
+        {
+            title: 'Phone',
+            value: 50,
+        },
+    ];
+
     const specialPromoData = [
         {
             id: 1,
@@ -94,65 +130,49 @@ const Home = () => {
 
     function renderHeader() {
         return (
-            <View style={{ flexDirection: 'row', marginVertical: MSIZES.padding * 2 }}>
-                <View style={{ flex: 1 }}>
-                    <Text style={{ ...MFONTS.h1 }}>Hello!</Text>
-                    <Text style={{ ...MFONTS.body2, color: MCOLORS.gray }}>ByProgrammers</Text>
-                </View>
-
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity
-                        style={{
-                            height: 40,
-                            width: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: MCOLORS.lightGray,
-                        }}
-                    >
-                        <Image
-                            source={icons.home}
-                            style={{
-                                width: 20,
-                                height: 20,
-                                tintColor: MCOLORS.secondary,
-                            }}
-                        />
-                        <View
-                            style={{
-                                position: 'absolute',
-                                top: -5,
-                                right: -5,
-                                height: 10,
-                                width: 10,
-                                backgroundColor: MCOLORS.red,
-                                borderRadius: 5,
-                            }}
-                        />
-                    </TouchableOpacity>
-                </View>
+            <View style={style.headerWrapper}>
+                <Image source={icons.emptyAvatar} />
+                <Text style={{ ...MFONTS.h2, marginHorizontal: MSIZES.padding }}>Hi Andy!</Text>
             </View>
         );
     }
 
-    function renderBanner() {
-        return (
-            <View
-                style={{
-                    height: 120,
-                    borderRadius: 20,
-                }}
-            >
-                <Image
-                    source={icons.home}
-                    resizeMode="cover"
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        borderRadius: 20,
-                    }}
-                />
+    function renderBanner({ total } = { total: 12345 }) {
+        const BannerHeader = () => {
+            return (
+                <View>
+                    <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'space-between',
+                            flexDirection: 'row',
+                        }}
+                    >
+                        <Text style={{ ...MFONTS.h4 }}>Total Expense</Text>
+                        <Text style={{ ...MFONTS.h4 }}>$ {total}</Text>
+                    </View>
+                    <Text style={{ ...MFONTS.h4 }}>Major expenses</Text>
+                </View>
+            );
+        };
+
+        const renderMajorItem = ({ item }) => (
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ ...MFONTS.body4 }}>{item.title}</Text>
+                <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>{item.value}</Text>
             </View>
+        );
+
+        return (
+            <FlatList
+                ListHeaderComponent={BannerHeader}
+                data={majorExpenses}
+                numColumns={3}
+                columnWrapperStyle={{ justifyContent: 'space-between' }}
+                keyExtractor={(item) => `${item.title}`}
+                renderItem={renderMajorItem}
+                style={style.bannerWrapper}
+            />
         );
     }
 
@@ -297,5 +317,19 @@ const Home = () => {
         </SafeAreaView>
     );
 };
+const style = StyleSheet.create({
+    headerWrapper: {
+        flex: 1,
+        marginVertical: MSIZES.padding * 2,
+        flexDirection: 'row',
+        gap: MSIZES.padding * 3,
+    },
+    bannerWrapper: {
+        flex: 1,
+        borderRadius: 20,
+        padding: MSIZES.padding * 2,
+        backgroundColor: MCOLORS.emerald,
+    },
+});
 
 export default Home;
