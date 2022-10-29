@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import {
     SafeAreaView,
     View,
@@ -8,69 +8,12 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
+    Pressable,
+    Modal,
 } from 'react-native';
 import { MCOLORS, MSIZES, MFONTS, icons } from '../consts';
 
 const Home = () => {
-    const featuresData = [
-        {
-            id: 1,
-            icon: icons.home,
-            color: MCOLORS.purple,
-            backgroundColor: MCOLORS.lightpurple,
-            description: 'Top Up',
-        },
-        {
-            id: 2,
-            icon: icons.home,
-            color: MCOLORS.yellow,
-            backgroundColor: MCOLORS.lightyellow,
-            description: 'Transfer',
-        },
-        {
-            id: 3,
-            icon: icons.home,
-            color: MCOLORS.primary,
-            backgroundColor: MCOLORS.lightGreen,
-            description: 'Internet',
-        },
-        {
-            id: 4,
-            icon: icons.home,
-            color: MCOLORS.red,
-            backgroundColor: MCOLORS.lightRed,
-            description: 'Wallet',
-        },
-        {
-            id: 5,
-            icon: icons.home,
-            color: MCOLORS.yellow,
-            backgroundColor: MCOLORS.lightyellow,
-            description: 'Bill',
-        },
-        {
-            id: 6,
-            icon: icons.home,
-            color: MCOLORS.primary,
-            backgroundColor: MCOLORS.lightGreen,
-            description: 'Games',
-        },
-        {
-            id: 7,
-            icon: icons.home,
-            color: MCOLORS.red,
-            backgroundColor: MCOLORS.lightRed,
-            description: 'Mobile Prepaid',
-        },
-        {
-            id: 8,
-            icon: icons.home,
-            color: MCOLORS.purple,
-            backgroundColor: MCOLORS.lightpurple,
-            description: 'More',
-        },
-    ];
-
     const majorExpenses = [
         {
             title: 'Food',
@@ -98,35 +41,29 @@ const Home = () => {
         },
     ];
 
-    const specialPromoData = [
+    const expenses = [
         {
-            id: 1,
-            img: icons.home,
-            title: 'Bonus Cashback1',
-            description: "Don't miss it. Grab it now!",
+            title: 'Transport',
+            value: 300,
         },
         {
-            id: 2,
-            img: icons.home,
-            title: 'Bonus Cashback2',
-            description: "Don't miss it. Grab it now!",
+            title: 'Food',
+            value: 300,
         },
         {
-            id: 3,
-            img: icons.home,
-            title: 'Bonus Cashback3',
-            description: "Don't miss it. Grab it now!",
+            title: 'Hotel',
+            value: 300,
         },
         {
-            id: 4,
-            img: icons.home,
-            title: 'Bonus Cashback4',
-            description: "Don't miss it. Grab it now!",
+            title: 'Taxi',
+            value: 300,
         },
     ];
 
-    const [features, setFeatures] = React.useState(featuresData);
-    const [specialPromos, setSpecialPromos] = React.useState(specialPromoData);
+    const [expenseList, setSpecialPromos] = useState(expenses);
+    const [selectedTripTag, setSelectedTripTag] = useState<string>('business');
+    const [isShowRequiredAssessmentModal, setIsShowRequiredAssessmentModal] =
+        useState<boolean>(false);
 
     function renderHeader() {
         return (
@@ -157,9 +94,9 @@ const Home = () => {
         };
 
         const renderMajorItem = ({ item }) => (
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ flex: 1, flexDirection: 'row', marginRight: MSIZES.padding }}>
                 <Text style={{ ...MFONTS.body4 }}>{item.title}</Text>
-                <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>{item.value}</Text>
+                <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>${item.value}</Text>
             </View>
         );
 
@@ -169,62 +106,72 @@ const Home = () => {
                 data={majorExpenses}
                 numColumns={3}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
-                keyExtractor={(item) => `${item.title}`}
+                keyExtractor={(item, index) => `_key${index.toString()}`}
                 renderItem={renderMajorItem}
                 style={style.bannerWrapper}
             />
         );
     }
 
-    function renderFeatures() {
-        const Header = () => (
-            <View style={{ marginBottom: MSIZES.padding * 2 }}>
-                <Text style={{ ...MFONTS.h3 }}>Features</Text>
-            </View>
-        );
-
-        const renderItem = ({ item }) => (
-            <TouchableOpacity
-                style={{ marginBottom: MSIZES.padding * 2, width: 60, alignItems: 'center' }}
-                onPress={() => console.log(item.description)}
+    function renderTrip() {
+        return (
+            <View
+                style={{
+                    marginTop: MSIZES.padding * 2,
+                }}
             >
-                <View
-                    style={{
-                        height: 50,
-                        width: 50,
-                        marginBottom: 5,
-                        borderRadius: 20,
-                        backgroundColor: item.backgroundColor,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={isShowRequiredAssessmentModal}
+                    onRequestClose={() => {
+                        setIsShowRequiredAssessmentModal(!isShowRequiredAssessmentModal);
                     }}
                 >
-                    <Image
-                        source={item.icon}
-                        resizeMode="contain"
-                        style={{
-                            height: 20,
-                            width: 20,
-                            tintColor: item.color,
-                        }}
-                    />
+                    <View style={style.centeredView}>
+                        <View style={style.modalView}>
+                            <Text style={style.modalText}>Required Risk Assessment</Text>
+                            <Pressable
+                                style={[style.button, style.buttonClose]}
+                                onPress={() =>
+                                    setIsShowRequiredAssessmentModal(!isShowRequiredAssessmentModal)
+                                }
+                            >
+                                <Text style={style.textStyle}>Close</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </Modal>
+                <View
+                    style={{
+                        marginBottom: MSIZES.padding * 2,
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Text style={{ ...MFONTS.h3 }}>My Trip</Text>
+                    <TouchableOpacity>
+                        <Text style={{ color: MCOLORS.gray, ...MFONTS.body4 }}>View All</Text>
+                    </TouchableOpacity>
                 </View>
-                <Text style={{ textAlign: 'center', flexWrap: 'wrap', ...MFONTS.body4 }}>
-                    {item.description}
-                </Text>
-            </TouchableOpacity>
-        );
-
-        return (
-            <FlatList
-                ListHeaderComponent={Header}
-                data={features}
-                numColumns={4}
-                columnWrapperStyle={{ justifyContent: 'space-between' }}
-                keyExtractor={(item) => `${item.id}`}
-                renderItem={renderItem}
-                style={{ marginTop: MSIZES.padding * 2 }}
-            />
+                <View style={style.tripItemWrapper}>
+                    <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>
+                        Meeting Mr Cook (Apple's CEO)
+                    </Text>
+                    <Text style={{ fontWeight: 'bold' }}>Date: 14.Oct.2022</Text>
+                    <TouchableOpacity
+                        style={{
+                            position: 'absolute',
+                            top: 10,
+                            right: 10,
+                        }}
+                        onPress={() => setIsShowRequiredAssessmentModal(true)}
+                    >
+                        <Image source={icons.requiredassesment} />
+                    </TouchableOpacity>
+                </View>
+            </View>
         );
     }
 
@@ -233,77 +180,102 @@ const Home = () => {
             <View>
                 {renderHeader()}
                 {renderBanner()}
-                {renderFeatures()}
-                {renderPromoHeader()}
+                {renderTrip()}
+                {renderRecentEntries()}
             </View>
         );
 
-        const renderPromoHeader = () => (
+        const renderRecentEntries = () => (
             <View
                 style={{
-                    flexDirection: 'row',
-                    marginBottom: MSIZES.padding,
+                    flexDirection: 'column',
+                    marginVertical: MSIZES.padding * 2,
                 }}
             >
                 <View style={{ flex: 1 }}>
-                    <Text style={{ ...MFONTS.h3 }}>Special Promos</Text>
+                    <Text style={{ ...MFONTS.h3, marginBottom: MSIZES.padding }}>
+                        Recent Entries
+                    </Text>
                 </View>
-                <TouchableOpacity onPress={() => console.log('View All')}>
-                    <Text style={{ color: MCOLORS.gray, ...MFONTS.body4 }}>View All</Text>
-                </TouchableOpacity>
+                <View style={{ flexDirection: 'row' }}>
+                    <Pressable
+                        style={{
+                            ...style.recentEntriesCategoryItem,
+                            backgroundColor:
+                                selectedTripTag === 'business' ? MCOLORS.blue : MCOLORS.gray,
+                        }}
+                        onPress={() => setSelectedTripTag('business')}
+                    >
+                        <View
+                            style={{
+                                ...style.recentEntriesCategoryDot,
+                                backgroundColor:
+                                    selectedTripTag === 'business'
+                                        ? MCOLORS.emerald
+                                        : MCOLORS.lightGray,
+                            }}
+                        />
+                        <Text style={{ paddingLeft: 3, color: MCOLORS.white }}>Business</Text>
+                    </Pressable>
+                    <Pressable
+                        style={{
+                            ...style.recentEntriesCategoryItem,
+                            backgroundColor:
+                                selectedTripTag === 'family' ? MCOLORS.blue : MCOLORS.gray,
+                        }}
+                        onPress={() => setSelectedTripTag('family')}
+                    >
+                        <View
+                            style={{
+                                ...style.recentEntriesCategoryDot,
+                                backgroundColor:
+                                    selectedTripTag === 'family'
+                                        ? MCOLORS.emerald
+                                        : MCOLORS.lightGray,
+                            }}
+                        />
+                        <Text style={style.recentEntriesCategoryText}>Family</Text>
+                    </Pressable>
+                    <Pressable
+                        style={{
+                            ...style.recentEntriesCategoryItem,
+                            backgroundColor:
+                                selectedTripTag === 'personal' ? MCOLORS.blue : MCOLORS.gray,
+                        }}
+                        onPress={() => setSelectedTripTag('personal')}
+                    >
+                        <View
+                            style={{
+                                ...style.recentEntriesCategoryDot,
+                                backgroundColor:
+                                    selectedTripTag === 'personal'
+                                        ? MCOLORS.emerald
+                                        : MCOLORS.lightGray,
+                            }}
+                        />
+                        <Text style={{ paddingLeft: 3, color: MCOLORS.white }}>Personal</Text>
+                    </Pressable>
+                </View>
             </View>
         );
 
         const renderItem = ({ item }) => (
-            <TouchableOpacity
-                style={{
-                    marginVertical: MSIZES.base,
-                    width: MSIZES.width / 2.5,
-                }}
-                onPress={() => console.log(item.title)}
-            >
-                <View
-                    style={{
-                        height: 80,
-                        borderTopLeftRadius: 20,
-                        borderTopRightRadius: 20,
-                        backgroundColor: MCOLORS.primary,
-                    }}
-                >
-                    <Image
-                        source={icons.home}
-                        resizeMode="cover"
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20,
-                        }}
-                    />
+            <View style={style.recentEntriesItemWrapper}>
+                <View>
+                    <Text style={{ ...MFONTS.body3 }}>{item.title}</Text>
+                    <Text>asdfasdf</Text>
                 </View>
-
-                <View
-                    style={{
-                        padding: MSIZES.padding,
-                        backgroundColor: MCOLORS.lightGray,
-                        borderBottomLeftRadius: 20,
-                        borderBottomRightRadius: 20,
-                    }}
-                >
-                    <Text style={{ ...MFONTS.h4 }}>{item.title}</Text>
-                    <Text style={{ ...MFONTS.body4 }}>{item.description}</Text>
-                </View>
-            </TouchableOpacity>
+                <Text style={{ ...MFONTS.h3, color: MCOLORS.emerald }}>$250,000</Text>
+            </View>
         );
 
         return (
             <FlatList
                 ListHeaderComponent={HeaderComponent}
                 contentContainerStyle={{ paddingHorizontal: MSIZES.padding * 3 }}
-                numColumns={2}
-                columnWrapperStyle={{ justifyContent: 'space-between' }}
-                data={specialPromos}
-                keyExtractor={(item) => `${item.id}`}
+                numColumns={1}
+                data={expenseList}
+                keyExtractor={(item, index) => `_key${index.toString()}`}
                 renderItem={renderItem}
                 showsVerticalScrollIndicator={false}
                 ListFooterComponent={<View style={{ marginBottom: 80 }} />}
@@ -318,6 +290,30 @@ const Home = () => {
     );
 };
 const style = StyleSheet.create({
+    recentEntriesItemWrapper: {
+        marginVertical: MSIZES.base,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    recentEntriesCategoryDot: {
+        backgroundColor: MCOLORS.black,
+        borderRadius: 4,
+        height: 10,
+        width: 10,
+    },
+    recentEntriesCategoryItem: {
+        padding: MSIZES.padding,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginRight: MSIZES.padding,
+    },
+    recentEntriesCategoryText: {
+        paddingLeft: 3,
+        color: MCOLORS.white,
+    },
     headerWrapper: {
         flex: 1,
         marginVertical: MSIZES.padding * 2,
@@ -327,8 +323,55 @@ const style = StyleSheet.create({
     bannerWrapper: {
         flex: 1,
         borderRadius: 20,
-        padding: MSIZES.padding * 2,
+        padding: MSIZES.padding * 1.5,
         backgroundColor: MCOLORS.emerald,
+    },
+    tripItemWrapper: {
+        padding: MSIZES.padding * 1.5,
+        borderRadius: 20,
+        borderWidth: 0.5,
+        borderColor: MCOLORS.gray,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        borderRadius: 10,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
     },
 });
 

@@ -27,6 +27,8 @@ export const MCOLORS = {
     gray: '#C1C3C5',
     darkgray: '#C3C6C7',
 
+    blue: '#048DFF',
+
     transparent: 'transparent',
 };
 export const MSIZES = {

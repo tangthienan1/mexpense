@@ -11,6 +11,7 @@ import note from '../assets/icons/note.png';
 import plus from '../assets/icons/plus.png';
 import emptyAvatar from '../assets/icons/emptyavatar.png';
 import search from '../assets/icons/search.png';
+import requiredassesment from '../assets/icons/requiredassesment.png';
 
 export default {
     alarm,
@@ -26,4 +27,5 @@ export default {
     plus,
     emptyAvatar,
     search,
+    requiredassesment,
 };
