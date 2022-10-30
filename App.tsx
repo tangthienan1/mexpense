@@ -23,7 +23,7 @@ const App = () => {
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="SignUp" component={SignUp} />
                 {/* Tabs */}
-                <Stack.Screen name="Home" component={Tabs} />
+                <Stack.Screen name="HomeScreen" component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
     );

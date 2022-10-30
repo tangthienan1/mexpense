@@ -4,11 +4,6 @@ export type HomeEntriesItemProps = {
     date: string;
 };
 
-export type HomeMajorItemProps = {
-    title: string;
-    value: number;
-};
-
 export type NoteListItemProps = {
     date: string;
     title: string;

@@ -3,8 +3,11 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { icons, MCOLORS } from '../consts';
-import Home from '../screens/Home';
-import Login from '../screens/Login';
+import Account from '../screens/Account';
+import HomeScreen from '../screens/HomeScreen';
+import NewTrip from '../screens/NewTrip';
+import Note from '../screens/Note';
+import TripList from '../screens/TripList';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,7 +69,7 @@ const Tabs = () => {
             screenOptions={{
                 headerShown: false,
             }}
-            tabBarOptions={{
+            tabBarOption={{
                 showLabel: false,
                 style: {
                     position: 'absolute',
@@ -78,8 +81,8 @@ const Tabs = () => {
             }}
         >
             <Tab.Screen
-                name="Home"
-                component={Home}
+                name="HomeScreen"
+                component={HomeScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -96,7 +99,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="Note"
-                component={Login}
+                component={Note}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -113,7 +116,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="NewTrip"
-                component={Home}
+                component={NewTrip}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -130,7 +133,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="TripList"
-                component={Home}
+                component={TripList}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image
@@ -147,7 +150,7 @@ const Tabs = () => {
             />
             <Tab.Screen
                 name="Account"
-                component={Home}
+                component={Account}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Image

@@ -12,40 +12,14 @@ import {
     View,
 } from 'react-native';
 import Layout from '../components/Layout';
+import WelcomeUser from '../components/WelcomeUser';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
-import { HomeEntriesItemProps, HomeMajorItemProps } from '../type';
+import { HomeEntriesItemProps } from '../type';
 
-const Home = () => {
-    const majorExpenses = [
-        {
-            title: 'Food',
-            value: 200,
-        },
-        {
-            title: 'Taxi',
-            value: 200,
-        },
-        {
-            title: 'Gift',
-            value: 200,
-        },
-        {
-            title: 'Transport',
-            value: 200,
-        },
-        {
-            title: 'Hotel',
-            value: 300,
-        },
-        {
-            title: 'Phone',
-            value: 50,
-        },
-    ];
-
+const HomeScreen = () => {
     const expenses = [
         {
-            title: 'Transport',
+            title: 'Move',
             value: 300,
             date: 'Sun 30 Oct',
         },
@@ -56,27 +30,66 @@ const Home = () => {
         },
         {
             title: 'Hotel',
-            value: 300,
+            value: 200,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Taxi',
-            value: 300,
+            value: 100,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Move',
+            value: 600,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Food',
+            value: 400,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Hotel',
+            value: 100,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Taxi',
+            value: 700,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Food',
+            value: 400,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Hotel',
+            value: 100,
+            date: 'Sun 30 Oct',
+        },
+        {
+            title: 'Taxi',
+            value: 700,
             date: 'Sun 30 Oct',
         },
     ];
 
     const [expenseList, setExpenseList] = useState<HomeEntriesItemProps[]>(expenses);
-    const [majorExpenseList, setMajorExpenseList] = useState<HomeMajorItemProps[]>(majorExpenses);
     const [selectedTripTag, setSelectedTripTag] = useState<string>('business');
     const [isShowRequiredAssessmentModal, setIsShowRequiredAssessmentModal] =
         useState<boolean>(false);
 
+    //ExpenseList max length is 8 for display on banner
+    const sortedExpenseList = expenses.sort((prev, next) => -prev.value + next.value);
+    const uniqueExpenseListByValue = [
+        ...new Map(sortedExpenseList.map((item) => [item.value, item])).values(),
+    ];
+    const majorExpenseList = uniqueExpenseListByValue.slice(0, 6);
     function renderHeader() {
         return (
             <View style={style.headerWrapper}>
-                <Image source={icons.emptyAvatar} />
-                <Text style={{ ...MFONTS.h2, marginHorizontal: MSIZES.padding }}>Hi Andy!</Text>
+                <WelcomeUser />
             </View>
         );
     }
@@ -100,7 +113,7 @@ const Home = () => {
             );
         };
 
-        const renderMajorItem: ListRenderItem<HomeMajorItemProps> = ({ item }) => (
+        const renderMajorItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
             <View style={{ flex: 1, flexDirection: 'row', marginRight: MSIZES.padding }}>
                 <Text style={{ ...MFONTS.body4 }}>{item.title}</Text>
                 <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>${item.value}</Text>
@@ -321,7 +334,6 @@ const style = StyleSheet.create({
         flex: 1,
         marginVertical: MSIZES.padding * 2,
         flexDirection: 'row',
-        gap: MSIZES.padding * 3,
     },
     bannerWrapper: {
         flex: 1,
@@ -334,6 +346,16 @@ const style = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 0.5,
         borderColor: MCOLORS.gray,
+        backgroundColor: 'white',
+
+        shadowColor: MCOLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     },
     centeredView: {
         flex: 1,
@@ -347,7 +369,7 @@ const style = StyleSheet.create({
         borderRadius: 20,
         padding: 35,
         alignItems: 'center',
-        shadowColor: '#000',
+        shadowColor: MCOLORS.black,
         shadowOffset: {
             width: 0,
             height: 2,
@@ -361,11 +383,8 @@ const style = StyleSheet.create({
         padding: 10,
         elevation: 2,
     },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
     buttonClose: {
-        backgroundColor: '#2196F3',
+        backgroundColor: MCOLORS.blue,
     },
     textStyle: {
         color: 'white',
@@ -378,4 +397,4 @@ const style = StyleSheet.create({
     },
 });
 
-export default Home;
+export default HomeScreen;

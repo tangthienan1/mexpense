@@ -68,7 +68,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                         <View style={loginStyle.buttonWrapper}>
                             <TouchableOpacity
                                 style={loginStyle.loginButton}
-                                onPress={() => navigation.navigate('Home')}
+                                onPress={() => navigation.navigate('HomeScreen')}
                             >
                                 <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>Login</Text>
                             </TouchableOpacity>
