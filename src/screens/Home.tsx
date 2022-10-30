@@ -1,17 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import {
-    SafeAreaView,
-    View,
-    Text,
-    Image,
     FlatList,
-    TouchableOpacity,
-    StyleSheet,
-    Pressable,
+    Image,
+    ListRenderItem,
     Modal,
+    Pressable,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { MCOLORS, MSIZES, MFONTS, icons } from '../consts';
+import Layout from '../components/Layout';
+import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
+import { HomeEntriesItemProps, HomeMajorItemProps } from '../type';
 
 const Home = () => {
     const majorExpenses = [
@@ -45,22 +47,27 @@ const Home = () => {
         {
             title: 'Transport',
             value: 300,
+            date: 'Sun 30 Oct',
         },
         {
             title: 'Food',
             value: 300,
+            date: 'Sun 30 Oct',
         },
         {
             title: 'Hotel',
             value: 300,
+            date: 'Sun 30 Oct',
         },
         {
             title: 'Taxi',
             value: 300,
+            date: 'Sun 30 Oct',
         },
     ];
 
-    const [expenseList, setSpecialPromos] = useState(expenses);
+    const [expenseList, setExpenseList] = useState<HomeEntriesItemProps[]>(expenses);
+    const [majorExpenseList, setMajorExpenseList] = useState<HomeMajorItemProps[]>(majorExpenses);
     const [selectedTripTag, setSelectedTripTag] = useState<string>('business');
     const [isShowRequiredAssessmentModal, setIsShowRequiredAssessmentModal] =
         useState<boolean>(false);
@@ -93,7 +100,7 @@ const Home = () => {
             );
         };
 
-        const renderMajorItem = ({ item }) => (
+        const renderMajorItem: ListRenderItem<HomeMajorItemProps> = ({ item }) => (
             <View style={{ flex: 1, flexDirection: 'row', marginRight: MSIZES.padding }}>
                 <Text style={{ ...MFONTS.body4 }}>{item.title}</Text>
                 <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>${item.value}</Text>
@@ -103,7 +110,7 @@ const Home = () => {
         return (
             <FlatList
                 ListHeaderComponent={BannerHeader}
-                data={majorExpenses}
+                data={majorExpenseList}
                 numColumns={3}
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 keyExtractor={(item, index) => `_key${index.toString()}`}
@@ -175,7 +182,7 @@ const Home = () => {
         );
     }
 
-    function renderPromos() {
+    function renderEntries() {
         const HeaderComponent = () => (
             <View>
                 {renderHeader()}
@@ -259,13 +266,13 @@ const Home = () => {
             </View>
         );
 
-        const renderItem = ({ item }) => (
+        const renderItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
             <View style={style.recentEntriesItemWrapper}>
                 <View>
                     <Text style={{ ...MFONTS.body3 }}>{item.title}</Text>
-                    <Text>asdfasdf</Text>
+                    <Text>{item.date}</Text>
                 </View>
-                <Text style={{ ...MFONTS.h3, color: MCOLORS.emerald }}>$250,000</Text>
+                <Text style={{ ...MFONTS.h3, color: MCOLORS.emerald }}>${item.value}</Text>
             </View>
         );
 
@@ -283,11 +290,7 @@ const Home = () => {
         );
     }
 
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: MCOLORS.white }}>
-            {renderPromos()}
-        </SafeAreaView>
-    );
+    return <Layout>{renderEntries()}</Layout>;
 };
 const style = StyleSheet.create({
     recentEntriesItemWrapper: {
