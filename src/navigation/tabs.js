@@ -69,7 +69,7 @@ const Tabs = () => {
             screenOptions={{
                 headerShown: false,
             }}
-            tabBarOption={{
+            tabBarOptions={{
                 showLabel: false,
                 style: {
                     position: 'absolute',
