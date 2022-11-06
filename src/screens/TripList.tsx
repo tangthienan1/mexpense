@@ -89,7 +89,7 @@ const TripList = () => {
     };
     const renderItem: ListRenderItem<TripItemType> = ({ item }) => {
         return (
-            <View style={style.tripItemWrapper}>
+            <TouchableOpacity style={style.tripItemWrapper}>
                 <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>{item.title}</Text>
                 <View
                     style={{
@@ -113,7 +113,7 @@ const TripList = () => {
                         <Image source={icons.requiredassesment} />
                     </TouchableOpacity>
                 )}
-            </View>
+            </TouchableOpacity>
         );
     };
 
