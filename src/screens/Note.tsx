@@ -95,7 +95,7 @@ const Note = () => {
     const renderItem: ListRenderItem<NoteListItemProps> = ({ item }) => {
         return Notes ? (
             <View style={style.noteItemWrapper}>
-                <Text style={{ ...MFONTS.h4 }}>{item.date}</Text>
+                <Text style={{ ...MFONTS.h4, marginVertical: MSIZES.padding }}>{item.date}</Text>
                 <View style={[style.noteItem, style.border]}>
                     <Text style={{ ...MFONTS.h4 }}>{item.title}</Text>
                     <Text style={{ ...MFONTS.body4, color: MCOLORS.darkgray }}>{item.content}</Text>
@@ -125,7 +125,7 @@ const Note = () => {
 
 const style = StyleSheet.create({
     noteItemWrapper: {
-        paddingBottom: MSIZES.padding,
+        marginVertical: MSIZES.padding,
     },
     noteItem: {
         padding: MSIZES.base,

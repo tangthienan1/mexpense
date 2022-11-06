@@ -6166,6 +6166,11 @@ react-native-config@^1.4.11:
   resolved "https://registry.npmjs.org/react-native-config/-/react-native-config-1.4.11.tgz"
   integrity sha512-PdBFnfR3pljUNrJu4B2wiJ9TbAiz1J1WcG5KP8AFBqZi8ve5MV/CTCDnANaGrqhOxkBDJV73D/SrMENHe7TKBg==
 
+react-native-dropdown-select-list@^1.0.23:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/react-native-dropdown-select-list/-/react-native-dropdown-select-list-1.0.23.tgz#63dbaf0a9808514b9151c14a6f3df12ae509ca7d"
+  integrity sha512-P4/GsqVv2EEUUJXyJyMwdDYKAT7qcsD6aXu0BjkM/5VmQGRLhRiLs7wfPW12Tva+AyX6URfw7pTsupJM3/oh/g==
+
 react-native-gradle-plugin@^0.70.3:
   version "0.70.3"
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"

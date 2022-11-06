@@ -15,6 +15,7 @@ import requiredassesment from '../assets/icons/requiredassesment.png';
 import date from '../assets/icons/date.png';
 import destination from '../assets/icons/destination.png';
 import dollar from '../assets/icons/dollar.png';
+import close from '../assets/icons/close.png';
 
 export default {
     alarm,
@@ -34,4 +35,5 @@ export default {
     date,
     dollar,
     destination,
+    close,
 };
