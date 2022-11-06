@@ -1,17 +1,180 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useRef, useState } from 'react';
+import {
+    FlatList,
+    Image,
+    ListRenderItem,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import Layout from '../components/Layout';
+import Tag from '../components/Tag';
+import WelcomeUser from '../components/WelcomeUser';
+import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
+import { TripItemType } from '../type';
 
-type Props = {};
-
-const TripList = (props: Props) => {
+const Header = () => {
     return (
-        <Layout>
-            <Text>TripList</Text>
-        </Layout>
+        <View style={style.headerWrapper}>
+            <WelcomeUser />
+        </View>
     );
 };
 
-export default TripList;
+const Trips = [
+    {
+        title: "Meeting Mr Cock (Apple's CEO)",
+        date: '14 - oct - 2022',
+        tag: 'Business',
+        isRequiredRiskAssessment: true,
+    },
+    {
+        title: 'Cultural Training',
+        date: '14 - oct - 2022',
+        tag: 'Business',
+        isRequiredRiskAssessment: true,
+    },
+    {
+        title: "Meeting Mr Cock (Apple's CEO)",
+        date: '14 - oct - 2022',
+        tag: 'Family',
+        isRequiredRiskAssessment: true,
+    },
+    {
+        title: "Meeting Mr Cock (Apple's CEO)",
+        date: '14 - oct - 2022',
+        tag: 'Personal',
+        isRequiredRiskAssessment: false,
+    },
+];
 
-const styles = StyleSheet.create({});
+const TripList = () => {
+    const [filteredTripList, setFilterTripList] = useState<TripItemType[]>(Trips);
+    const searchTextRef = useRef('');
+    console.log(searchTextRef);
+
+    const handleSearchPress = () => {
+        if (searchTextRef.current) {
+            const newFilterTripList =
+                Trips &&
+                Trips.filter((tripItem) =>
+                    tripItem.title.toLowerCase().includes(searchTextRef.current.toLowerCase())
+                );
+            newFilterTripList && setFilterTripList(newFilterTripList);
+        } else {
+            setFilterTripList(Trips);
+        }
+    };
+
+    const HeaderComponent = () => {
+        return (
+            <View>
+                <Header />
+                <View style={[style.searchSection, style.border]}>
+                    <TextInput
+                        defaultValue={searchTextRef.current}
+                        placeholder="Search"
+                        onChangeText={(searchText) => (searchTextRef.current = searchText)}
+                        style={{ flex: 1 }}
+                    />
+                    <TouchableOpacity onPress={handleSearchPress}>
+                        <Image style={{ width: 16, height: 16 }} source={icons.search} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    };
+    const renderItem: ListRenderItem<TripItemType> = ({ item }) => {
+        return (
+            <View style={style.tripItemWrapper}>
+                <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>{item.title}</Text>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Text style={{ fontWeight: 'bold' }}>Date: 14.Oct.2022</Text>
+                    <Tag tag={item.tag} />
+                </View>
+                {item.isRequiredRiskAssessment && (
+                    <TouchableOpacity
+                        style={{
+                            position: 'absolute',
+                            top: 10,
+                            right: 10,
+                        }}
+                        // onPress={() => setIsShowRequiredAssessmentModal(true)}
+                    >
+                        <Image source={icons.requiredassesment} />
+                    </TouchableOpacity>
+                )}
+            </View>
+        );
+    };
+
+    function renderNote() {
+        return (
+            <FlatList
+                ListHeaderComponent={HeaderComponent}
+                contentContainerStyle={{ paddingHorizontal: MSIZES.padding * 3 }}
+                numColumns={1}
+                data={filteredTripList}
+                keyExtractor={(item, index) => `_key${index.toString()}`}
+                renderItem={renderItem}
+                showsVerticalScrollIndicator={false}
+                ListFooterComponent={<View style={{ marginBottom: 80 }} />}
+            />
+        );
+    }
+    return <Layout>{renderNote()}</Layout>;
+};
+
+const style = StyleSheet.create({
+    tripItemWrapper: {
+        padding: MSIZES.padding * 1.5,
+        marginVertical: MSIZES.padding,
+        borderRadius: 20,
+        borderWidth: 0.5,
+        borderColor: MCOLORS.gray,
+        backgroundColor: 'white',
+
+        shadowColor: MCOLORS.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    noteItem: {
+        padding: MSIZES.base,
+    },
+    searchSection: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+
+        marginVertical: MSIZES.padding * 2,
+        paddingVertical: MSIZES.base,
+        paddingHorizontal: MSIZES.padding,
+    },
+    headerWrapper: {
+        flex: 1,
+        marginTop: MSIZES.padding * 2,
+        flexDirection: 'row',
+    },
+    border: {
+        borderColor: MCOLORS.darkgray,
+        borderWidth: 1,
+        borderRadius: 10,
+    },
+});
+
+export default TripList;

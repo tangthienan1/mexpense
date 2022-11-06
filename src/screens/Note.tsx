@@ -13,7 +13,7 @@ import {
 import Layout from '../components/Layout';
 import WelcomeUser from '../components/WelcomeUser';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
-import { NoteListItemProps } from '../type';
+import { NoteItemType } from '../type';
 
 const Notes = [
     {
@@ -51,17 +51,12 @@ const Header = () => {
 };
 
 const Note = () => {
-    const [filteredNoteList, setFilterNoteList] = useState<NoteListItemProps[]>(Notes);
-    // const [searchInput, setSearchInput] = useState<string | undefined>();
+    const [filteredNoteList, setFilterNoteList] = useState<NoteItemType[]>(Notes);
     const searchTextRef = useRef('');
+    console.log({ filteredNoteList });
     console.log(searchTextRef);
 
     const handleSearchPress = () => {
-        // setSearchInput(searchTextRef.current);
-        // const searchText = text.toLowerCase();
-        // const newFilterNoteList =
-        //     Notes && Notes.filter((noteItem) => noteItem.title.toLowerCase().includes(searchText));
-        // newFilterNoteList && setFilterNoteList(newFilterNoteList);
         if (searchTextRef.current) {
             const newFilterNoteList =
                 Notes &&
@@ -92,8 +87,9 @@ const Note = () => {
             </View>
         );
     };
-    const renderItem: ListRenderItem<NoteListItemProps> = ({ item }) => {
-        return Notes ? (
+    const renderItem: ListRenderItem<NoteItemType> = ({ item }) => {
+        console.log('asdf', item);
+        return item ? (
             <View style={style.noteItemWrapper}>
                 <Text style={{ ...MFONTS.h4, marginVertical: MSIZES.padding }}>{item.date}</Text>
                 <View style={[style.noteItem, style.border]}>

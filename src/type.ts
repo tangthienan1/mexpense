@@ -4,8 +4,15 @@ export type HomeEntriesItemProps = {
     date: string;
 };
 
-export type NoteListItemProps = {
+export type NoteItemType = {
     date: string;
     title: string;
     content: string;
+};
+
+export type TripItemType = {
+    title: string;
+    date: string;
+    tag: string;
+    isRequiredRiskAssessment: boolean;
 };
