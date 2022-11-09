@@ -62,7 +62,10 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
                             <View style={{ flex: 1, marginRight: MSIZES.padding }}>
                                 <Text style={styles.inputTile}>Budget</Text>
                                 <View style={styles.inputWithIcon}>
-                                    <Image source={icons.dollar} />
+                                    <Image
+                                        style={{ marginRight: MSIZES.base }}
+                                        source={icons.dollar}
+                                    />
                                     <TextInput style={{ flex: 1 }} />
                                 </View>
                             </View>
@@ -75,7 +78,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
                             </View>
                         </View>
 
-                        <Text style={styles.inputTile}>Tags</Text>
+                        <Text style={styles.inputTile}>Tag</Text>
                         <SelectDropDown setSelected={setSelectedTags} data={Tags} />
 
                         <Text style={styles.inputTile}>Description</Text>

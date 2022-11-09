@@ -5,16 +5,14 @@ import {
     Image,
     ListRenderItem,
     StyleSheet,
-    Text,
     TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
 import Layout from '../components/Layout';
-import Tag from '../components/Tag';
+import TripSummary, { TripSummaryProps } from '../components/TripSummary';
 import WelcomeUser from '../components/WelcomeUser';
-import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
-import { TripItemType } from '../type';
+import { icons, MCOLORS, MSIZES } from '../consts';
 
 const Header = () => {
     return (
@@ -52,7 +50,7 @@ const Trips = [
 ];
 
 const TripList = () => {
-    const [filteredTripList, setFilterTripList] = useState<TripItemType[]>(Trips);
+    const [filteredTripList, setFilterTripList] = useState<TripSummaryProps[]>(Trips);
     const searchTextRef = useRef('');
     console.log(searchTextRef);
 
@@ -87,32 +85,15 @@ const TripList = () => {
             </View>
         );
     };
-    const renderItem: ListRenderItem<TripItemType> = ({ item }) => {
+    const renderItem: ListRenderItem<TripSummaryProps> = ({ item }) => {
         return (
-            <TouchableOpacity style={style.tripItemWrapper}>
-                <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>{item.title}</Text>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text style={{ fontWeight: 'bold' }}>Date: 14.Oct.2022</Text>
-                    <Tag tag={item.tag} />
-                </View>
-                {item.isRequiredRiskAssessment && (
-                    <TouchableOpacity
-                        style={{
-                            position: 'absolute',
-                            top: 10,
-                            right: 10,
-                        }}
-                        // onPress={() => setIsShowRequiredAssessmentModal(true)}
-                    >
-                        <Image source={icons.requiredassesment} />
-                    </TouchableOpacity>
-                )}
+            <TouchableOpacity>
+                <TripSummary
+                    title={item.title}
+                    date={item.date}
+                    tag={item.tag}
+                    isRequiredRiskAssessment={item.isRequiredRiskAssessment}
+                />
             </TouchableOpacity>
         );
     };

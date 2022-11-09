@@ -17,7 +17,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { MCOLORS, MFONTS, icons, MSIZES } from '../consts';
 
 type LoginProps = {
-    navigation?: any;
+    navigation: any;
 };
 
 const Login: FC<LoginProps> = ({ navigation }) => {

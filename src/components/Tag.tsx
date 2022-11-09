@@ -1,7 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { FC } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { MCOLORS, MFONTS } from '../consts';
+import { MCOLORS, MFONTS, MSIZES } from '../consts';
 
 type Props = {
     tag: string;
@@ -42,14 +41,15 @@ const styles = StyleSheet.create({
     tagWrapper: {
         flexDirection: 'row',
         width: '30%',
-        justifyContent: 'space-around',
         alignItems: 'center',
         padding: 2,
+        paddingHorizontal: MSIZES.padding,
         borderRadius: 10,
     },
     dot: {
         height: 10,
         width: 10,
         borderRadius: 50,
+        marginRight: 4,
     },
 });

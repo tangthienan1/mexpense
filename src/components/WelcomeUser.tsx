@@ -1,18 +1,25 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { FC } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { icons, MFONTS, MSIZES } from '../consts';
 
-const WelcomeUser = () => {
+const WelcomeUser: FC<{ navigation?: any }> = ({ navigation }) => {
     return (
-        <View style={style.WelcomeUserWrapper}>
-            <Image source={icons.emptyAvatar} />
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Account')}
+            style={style.WelcomeUserWrapper}
+        >
+            <Image style={style.img} source={icons.emptyAvatar} />
             <Text style={{ ...MFONTS.body2, marginHorizontal: MSIZES.padding }}>Hi Andy!</Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 
 export default WelcomeUser;
 const style = StyleSheet.create({
+    img: {
+        width: 32,
+        height: 32,
+    },
     WelcomeUserWrapper: {
         flexDirection: 'row',
     },

@@ -16,6 +16,11 @@ import date from '../assets/icons/date.png';
 import destination from '../assets/icons/destination.png';
 import dollar from '../assets/icons/dollar.png';
 import close from '../assets/icons/close.png';
+import camera from '../assets/icons/camera.png';
+import rightarrow from '../assets/icons/rightarrow.png';
+import expenses from '../assets/icons/expenses.png';
+import budget from '../assets/icons/budget.png';
+import bublenote from '../assets/icons/bublenote.png';
 
 export default {
     alarm,
@@ -36,4 +41,9 @@ export default {
     dollar,
     destination,
     close,
+    camera,
+    rightarrow,
+    expenses,
+    budget,
+    bublenote,
 };

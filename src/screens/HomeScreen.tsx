@@ -1,91 +1,92 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
     FlatList,
     Image,
     ListRenderItem,
-    Modal,
-    Pressable,
     StyleSheet,
     Text,
     TouchableOpacity,
     View,
 } from 'react-native';
 import Layout from '../components/Layout';
+import TripSummary from '../components/TripSummary';
 import WelcomeUser from '../components/WelcomeUser';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 import { HomeEntriesItemProps } from '../type';
 
-const HomeScreen = () => {
+type HomeScreenProps = {
+    navigation: any;
+};
+
+const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     const expenses = [
         {
             title: 'Move',
-            value: 300,
+            amount: 300,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Food',
-            value: 300,
+            amount: 300,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Hotel',
-            value: 200,
+            amount: 200,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Taxi',
-            value: 100,
+            amount: 100,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Move',
-            value: 600,
+            amount: 600,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Food',
-            value: 400,
+            amount: 400,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Hotel',
-            value: 100,
+            amount: 100,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Taxi',
-            value: 700,
+            amount: 700,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Food',
-            value: 400,
+            amount: 400,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Hotel',
-            value: 100,
+            amount: 100,
             date: 'Sun 30 Oct',
         },
         {
             title: 'Taxi',
-            value: 700,
+            amount: 700,
             date: 'Sun 30 Oct',
         },
     ];
 
     const [expenseList, setExpenseList] = useState<HomeEntriesItemProps[]>(expenses);
-    const [selectedTripTag, setSelectedTripTag] = useState<string>('business');
-    const [isShowRequiredAssessmentModal, setIsShowRequiredAssessmentModal] =
-        useState<boolean>(false);
 
     //ExpenseList max length is 8 for display on banner
-    const sortedExpenseList = expenses.sort((prev, next) => -prev.value + next.value);
+    const sortedExpenseList = [...expenseList].sort((prev, next) => -prev.amount + next.amount);
     const uniqueExpenseListByValue = [
-        ...new Map(sortedExpenseList.map((item) => [item.value, item])).values(),
+        ...new Map(sortedExpenseList.map((item) => [item.amount, item])).values(),
     ];
     const majorExpenseList = uniqueExpenseListByValue.slice(0, 6);
+
     function renderHeader() {
         return (
             <View style={style.headerWrapper}>
@@ -116,7 +117,7 @@ const HomeScreen = () => {
         const renderMajorItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
             <View style={{ flex: 1, flexDirection: 'row', marginRight: MSIZES.padding }}>
                 <Text style={{ ...MFONTS.body4 }}>{item.title}</Text>
-                <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>${item.value}</Text>
+                <Text style={{ ...MFONTS.body4, paddingLeft: 8 }}>${item.amount}</Text>
             </View>
         );
 
@@ -140,28 +141,6 @@ const HomeScreen = () => {
                     marginTop: MSIZES.padding * 2,
                 }}
             >
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={isShowRequiredAssessmentModal}
-                    onRequestClose={() => {
-                        setIsShowRequiredAssessmentModal(!isShowRequiredAssessmentModal);
-                    }}
-                >
-                    <View style={style.centeredView}>
-                        <View style={style.modalView}>
-                            <Text style={style.modalText}>Required Risk Assessment</Text>
-                            <Pressable
-                                style={[style.button, style.buttonClose]}
-                                onPress={() =>
-                                    setIsShowRequiredAssessmentModal(!isShowRequiredAssessmentModal)
-                                }
-                            >
-                                <Text style={style.textStyle}>Close</Text>
-                            </Pressable>
-                        </View>
-                    </View>
-                </Modal>
                 <View
                     style={{
                         marginBottom: MSIZES.padding * 2,
@@ -171,24 +150,43 @@ const HomeScreen = () => {
                     }}
                 >
                     <Text style={{ ...MFONTS.h3 }}>My Trip</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('TripList')}>
                         <Text style={{ color: MCOLORS.gray, ...MFONTS.body4 }}>View All</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={style.tripItemWrapper}>
-                    <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>
-                        Meeting Mr Cook (Apple's CEO)
-                    </Text>
-                    <Text style={{ fontWeight: 'bold' }}>Date: 14.Oct.2022</Text>
+                <View style={{ marginBottom: MSIZES.padding }}>
+                    <TripSummary
+                        title="Meeting Mr Cock (Apple's CEO)"
+                        date="14 - oct - 2022"
+                        tag="Business"
+                        isRequiredRiskAssessment={true}
+                    />
+                </View>
+                <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity
-                        style={{
-                            position: 'absolute',
-                            top: 10,
-                            right: 10,
-                        }}
-                        onPress={() => setIsShowRequiredAssessmentModal(true)}
+                        style={[
+                            style.tripItemWrapper,
+                            style.tripOptionWrapper,
+                            { marginRight: MSIZES.padding },
+                        ]}
                     >
-                        <Image source={icons.requiredassesment} />
+                        <Image source={icons.expenses} />
+                        <Text style={{ fontWeight: 'bold' }}>Expenses</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[style.tripItemWrapper, style.tripOptionWrapper]}>
+                        <Image style={{ height: 45 }} source={icons.budget} />
+                        <Text style={{ fontWeight: 'bold' }}>Budget</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[
+                            style.tripItemWrapper,
+                            style.tripOptionWrapper,
+                            { marginLeft: MSIZES.padding },
+                        ]}
+                        onPress={() => navigation.navigate('Note')}
+                    >
+                        <Image source={icons.bublenote} />
+                        <Text style={{ fontWeight: 'bold' }}>Note</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -213,11 +211,9 @@ const HomeScreen = () => {
                 }}
             >
                 <View style={{ flex: 1 }}>
-                    <Text style={{ ...MFONTS.h3, marginBottom: MSIZES.padding }}>
-                        Recent Entries
-                    </Text>
+                    <Text style={{ ...MFONTS.h3 }}>Recent Entries</Text>
                 </View>
-                <View style={{ flexDirection: 'row' }}>
+                {/* <View style={{ flexDirection: 'row' }}>
                     <Pressable
                         style={{
                             ...style.recentEntriesCategoryItem,
@@ -275,17 +271,17 @@ const HomeScreen = () => {
                         />
                         <Text style={{ paddingLeft: 3, color: MCOLORS.white }}>Personal</Text>
                     </Pressable>
-                </View>
+                </View> */}
             </View>
         );
 
         const renderItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
             <View style={style.recentEntriesItemWrapper}>
                 <View>
-                    <Text style={{ ...MFONTS.body3 }}>{item.title}</Text>
+                    <Text style={{ ...MFONTS.h3 }}>{item.title}</Text>
                     <Text>{item.date}</Text>
                 </View>
-                <Text style={{ ...MFONTS.h3, color: MCOLORS.emerald }}>${item.value}</Text>
+                <Text style={{ ...MFONTS.h3, color: MCOLORS.emerald }}>${item.amount}</Text>
             </View>
         );
 
@@ -357,6 +353,12 @@ const style = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
     },
+    tripOptionWrapper: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
+    //need to remove
     centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -395,6 +397,7 @@ const style = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
     },
+    //end need to remove
 });
 
 export default HomeScreen;
