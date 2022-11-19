@@ -2,6 +2,7 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import React, { FC, useState } from 'react';
 import {
+    ActivityIndicator,
     Image,
     KeyboardAvoidingView,
     Pressable,
@@ -14,6 +15,7 @@ import {
 } from 'react-native';
 import Config from 'react-native-config';
 import LinearGradient from 'react-native-linear-gradient';
+import { ErrorText } from '../components/Text/Text';
 import { MCOLORS, MFONTS, icons, MSIZES } from '../consts';
 
 type LoginProps = {
@@ -21,6 +23,7 @@ type LoginProps = {
 };
 
 const Login: FC<LoginProps> = ({ navigation }) => {
+    const [error, setError] = useState<boolean>();
     GoogleSignin.configure({
         webClientId: Config.FIREBASE_WEB_CLIENT,
     });
@@ -41,8 +44,27 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
+    const [isLoginProgress, setIsLoginProgress] = useState<boolean>(false);
 
-    const handleLogin = () => {};
+    const handleLogin = () => {
+        setIsLoginProgress(true);
+        console.log({ email, password });
+        if (email && password) {
+            auth()
+                .signInWithEmailAndPassword(email, password)
+                .then(({ user }) => {
+                    setIsLoginProgress(false);
+                    console.log({ user });
+                })
+                .catch(() => {
+                    setIsLoginProgress(false);
+                    setError(true);
+                });
+        } else {
+            setIsLoginProgress(false);
+            setError(true);
+        }
+    };
 
     return (
         <KeyboardAvoidingView style={loginStyle.login}>
@@ -68,21 +90,26 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                         />
 
                         <Text style={loginStyle.inputTile}>Password</Text>
+
                         <TextInput
                             secureTextEntry={true}
                             style={loginStyle.textInput}
                             onChangeText={(text) => setPassword(text)}
                         />
+                        {error && <ErrorText message={'Wrong email or password!!'} />}
 
                         <Pressable style={loginStyle.forgotPassword}>
                             <Text style={loginStyle.inputTile}>Forgot Password?</Text>
                         </Pressable>
                         <View style={loginStyle.buttonWrapper}>
-                            <TouchableOpacity
-                                style={loginStyle.loginButton}
-                                onPress={() => navigation.navigate('HomeScreen')}
-                            >
-                                <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>Login</Text>
+                            <TouchableOpacity style={loginStyle.loginButton} onPress={handleLogin}>
+                                {!isLoginProgress ? (
+                                    <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>
+                                        Login
+                                    </Text>
+                                ) : (
+                                    <ActivityIndicator color={MCOLORS.emerald} />
+                                )}
                             </TouchableOpacity>
                         </View>
 
@@ -113,6 +140,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 export const loginStyle = StyleSheet.create({
     bottomText: {
         alignItems: 'center',
+        marginBottom: MSIZES.padding2 * 9,
     },
     newUserText: {
         color: MCOLORS.lightGreen,
