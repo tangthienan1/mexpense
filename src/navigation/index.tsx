@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import AuthApp from './authApp';
+import AuthApp from './AuthApp';
 import ManageApp from './ManageApp';
 import { useAuth } from './useAuth';
 

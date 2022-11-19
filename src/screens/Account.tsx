@@ -1,12 +1,23 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import auth from '@react-native-firebase/auth';
+import React, { useState } from 'react';
+import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AccountOption from '../components/AccountOption';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 
 type Props = {};
 
 const Account = (props: Props) => {
+    const [isSignOut, setIsSignOut] = useState(false);
+
+    const onSignOut = () => {
+        setIsSignOut(true);
+        auth()
+            .signOut()
+            .then(() => setIsSignOut(false));
+    };
+
     return (
         <SafeAreaView
             style={{
@@ -48,46 +59,22 @@ const Account = (props: Props) => {
             </View>
 
             <View style={{ alignItems: 'center', marginBottom: MSIZES.padding2 * 5 }}>
-                <Text style={{ ...MFONTS.body2 }}>Hồ Nguyễn Phú Bảo</Text>
+                <Text style={{ ...MFONTS.body2 }}>Ho Nguyen Phu Bao</Text>
                 <Text style={{ ...MFONTS.body2, color: MCOLORS.gray }}>(+84) 963 893 893</Text>
                 <Text style={{ ...MFONTS.body2, color: MCOLORS.gray }}>baohnp@fe.edu.vn</Text>
             </View>
 
-            <TouchableOpacity style={styles.card}>
-                <Text>Edit Profile</Text>
-                <Image source={icons.rightarrow} />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.card}>
-                <Text>Export Data</Text>
-                <Image source={icons.rightarrow} />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.card}>
-                <Text>Settings</Text>
-                <Image source={icons.rightarrow} />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.card}>
-                <Text>Support Info</Text>
-                <Image source={icons.rightarrow} />
-            </TouchableOpacity>
+            <AccountOption title={'Edit Profile'} />
+            <AccountOption title={'Export Data'} />
+            <AccountOption title={'Settings'} />
+            <AccountOption title={'Support Info'} />
+            <AccountOption
+                title={'Sign out'}
+                onPress={onSignOut}
+                icon={isSignOut && <ActivityIndicator />}
+            />
         </SafeAreaView>
     );
 };
 
 export default Account;
-
-const styles = StyleSheet.create({
-    card: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: MSIZES.padding,
-        marginBottom: MSIZES.padding,
-
-        borderWidth: 1,
-        borderColor: MCOLORS.gray,
-        borderRadius: 5,
-    },
-});

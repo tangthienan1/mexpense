@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
+import auth from '@react-native-firebase/auth';
+import React, { FC, useState } from 'react';
 import {
     ActivityIndicator,
     Image,
@@ -10,7 +11,6 @@ import {
     View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import auth from '@react-native-firebase/auth';
 import { ErrorText } from '../components/Text/Text';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 import { loginStyle } from './Login';
@@ -64,6 +64,11 @@ const SignUp: FC<SignUpProps> = ({ navigation }) => {
                 .then(() => {
                     setIsLoading(false);
                     navigation.navigate('Login');
+                })
+                .catch((err) => {
+                    setIsLoading(false);
+                    console.log({ err });
+                    setError({ ...error, ...{ signUp: 'Something went wrong' } });
                 });
         } else {
             setError({ ...error, ...{ signUp: 'You have to complete the form!!' } });

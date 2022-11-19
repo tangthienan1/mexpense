@@ -1,5 +1,4 @@
 import auth from '@react-native-firebase/auth';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 import React, { FC, useState } from 'react';
 import {
     ActivityIndicator,
@@ -13,10 +12,9 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import Config from 'react-native-config';
 import LinearGradient from 'react-native-linear-gradient';
 import { ErrorText } from '../components/Text/Text';
-import { MCOLORS, MFONTS, icons, MSIZES } from '../consts';
+import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 
 type LoginProps = {
     navigation: any;
@@ -24,27 +22,20 @@ type LoginProps = {
 
 const Login: FC<LoginProps> = ({ navigation }) => {
     const [error, setError] = useState<boolean>();
-    GoogleSignin.configure({
-        webClientId: Config.FIREBASE_WEB_CLIENT,
-    });
-
-    // const signInWithGoogle = async () => {
-    //     // Check if your device supports Google Play
-    //     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    //     // Get the users ID token
-    //     const { idToken } = await GoogleSignin.signIn();
-    //     // Create a Google credential with the token
-    //     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    //     // Sign-in the user with the credential
-    //     const user_signin = auth().signInWithCredential(googleCredential);
-    //     user_signin.then((res) => {
-    //         console.log({ res });
-    //     });
-    // };
 
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [isLoginProgress, setIsLoginProgress] = useState<boolean>(false);
+
+    const onForgotPassword = () => {
+        if (email) {
+            auth()
+                .sendPasswordResetEmail(email)
+                .then(() => {
+                    console.log('Password Sended to your email');
+                });
+        }
+    };
 
     const handleLogin = () => {
         setIsLoginProgress(true);
@@ -98,9 +89,12 @@ const Login: FC<LoginProps> = ({ navigation }) => {
                         />
                         {error && <ErrorText message={'Wrong email or password!!'} />}
 
-                        <Pressable style={loginStyle.forgotPassword}>
+                        <TouchableOpacity
+                            style={loginStyle.forgotPassword}
+                            onPress={onForgotPassword}
+                        >
                             <Text style={loginStyle.inputTile}>Forgot Password?</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                         <View style={loginStyle.buttonWrapper}>
                             <TouchableOpacity style={loginStyle.loginButton} onPress={handleLogin}>
                                 {!isLoginProgress ? (
