@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
     Image,
     KeyboardAvoidingView,
@@ -39,6 +39,12 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     //     });
     // };
 
+    const [email, setEmail] = useState<string | undefined>();
+    console.log({ email });
+    const [password, setPassword] = useState<string>();
+
+    const handleLogin = () => {};
+
     return (
         <KeyboardAvoidingView style={loginStyle.login}>
             <LinearGradient colors={[MCOLORS.lime, MCOLORS.emerald]} style={loginStyle.login}>
@@ -56,10 +62,18 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
                     <View style={loginStyle.form}>
                         <Text style={loginStyle.inputTile}>Email</Text>
-                        <TextInput style={loginStyle.textInput} />
+                        <TextInput
+                            keyboardType="email-address"
+                            style={loginStyle.textInput}
+                            onChangeText={(text) => setEmail(text as any)}
+                        />
 
                         <Text style={loginStyle.inputTile}>Password</Text>
-                        <TextInput secureTextEntry={true} style={loginStyle.textInput} />
+                        <TextInput
+                            secureTextEntry={true}
+                            style={loginStyle.textInput}
+                            onChangeText={(text) => setPassword(text)}
+                        />
 
                         <Pressable style={loginStyle.forgotPassword}>
                             <Text style={loginStyle.inputTile}>Forgot Password?</Text>

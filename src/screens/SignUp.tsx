@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
     Image,
     KeyboardAvoidingView,
@@ -17,6 +17,13 @@ type SignUpProps = {
 };
 
 const SignUp: FC<SignUpProps> = ({ navigation }) => {
+    const [error, setError] = useState({});
+
+    const validatePassword = (inputPassword: string) => {
+        if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(inputPassword)) {
+            setError({ ...error, ...{ password: 'Invalid password' } });
+        }
+    };
     return (
         <KeyboardAvoidingView style={loginStyle.login}>
             <LinearGradient colors={[MCOLORS.lime, MCOLORS.emerald]} style={loginStyle.login}>

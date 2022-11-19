@@ -2,11 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import { SharedStateProvider } from './src/contexts';
-import Tabs from './src/navigation/tabs';
-import AddExpense from './src/screens/AddExpense';
-import Login from './src/screens/Login';
-import SignUp from './src/screens/SignUp';
+import { SharedStateProvider } from '../contexts';
+import AddExpense from '../screens/AddExpense';
+import Login from '../screens/Login';
+import SignUp from '../screens/SignUp';
+import Tabs from './tabs';
 
 const Stack = createNativeStackNavigator();
 

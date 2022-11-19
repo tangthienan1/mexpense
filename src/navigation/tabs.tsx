@@ -68,10 +68,8 @@ const Tabs = () => {
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
-            }}
-            tabBarOptions={{
-                showLabel: false,
-                style: {
+                tabBarShowLabel: false,
+                tabBarStyle: {
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
@@ -94,7 +92,13 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                    tabBarButton: ({ accessibilityState, children, onPress }) => (
+                        <TabBarCustomButton
+                            accessibilityState={accessibilityState}
+                            children={children}
+                            onPress={onPress}
+                        />
+                    ),
                 }}
             />
             <Tab.Screen
@@ -111,7 +115,13 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                    tabBarButton: ({ accessibilityState, children, onPress }) => (
+                        <TabBarCustomButton
+                            accessibilityState={accessibilityState}
+                            children={children}
+                            onPress={onPress}
+                        />
+                    ),
                 }}
             />
             <Tab.Screen
@@ -128,7 +138,9 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => <NewTripButton {...props} />,
+                    tabBarButton: ({ children, onPress }) => (
+                        <NewTripButton children={children} onPress={onPress} />
+                    ),
                 }}
             />
             <Tab.Screen
@@ -145,7 +157,13 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                    tabBarButton: ({ accessibilityState, children, onPress }) => (
+                        <TabBarCustomButton
+                            accessibilityState={accessibilityState}
+                            children={children}
+                            onPress={onPress}
+                        />
+                    ),
                 }}
             />
             <Tab.Screen
@@ -162,7 +180,13 @@ const Tabs = () => {
                             }}
                         />
                     ),
-                    tabBarButton: (props) => <TabBarCustomButton {...props} />,
+                    tabBarButton: ({ accessibilityState, children, onPress }) => (
+                        <TabBarCustomButton
+                            accessibilityState={accessibilityState}
+                            children={children}
+                            onPress={onPress}
+                        />
+                    ),
                 }}
             />
         </Tab.Navigator>
