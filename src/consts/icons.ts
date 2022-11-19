@@ -1,26 +1,27 @@
-import alarm from '../assets/icons/alarm.png';
-import arrow from '../assets/icons/arrow.png';
-import disable from '../assets/icons/disable.png';
-import logo from '../assets/icons/logo.png';
-import padlock from '../assets/icons/padlock.png';
-import tick from '../assets/icons/tick.png';
-import home from '../assets/icons/home.png';
-import account from '../assets/icons/account.png';
-import list from '../assets/icons/list.png';
-import note from '../assets/icons/note.png';
-import plus from '../assets/icons/plus.png';
-import emptyAvatar from '../assets/icons/emptyavatar.png';
-import search from '../assets/icons/search.png';
-import requiredassesment from '../assets/icons/requiredassesment.png';
-import date from '../assets/icons/date.png';
-import destination from '../assets/icons/destination.png';
-import dollar from '../assets/icons/dollar.png';
-import close from '../assets/icons/close.png';
-import camera from '../assets/icons/camera.png';
-import rightarrow from '../assets/icons/rightarrow.png';
-import expenses from '../assets/icons/expenses.png';
-import budget from '../assets/icons/budget.png';
-import bublenote from '../assets/icons/bublenote.png';
+const alarm = require('../assets/icons/alarm.png');
+const arrow = require('../assets/icons/arrow.png');
+const disable = require('../assets/icons/disable.png');
+const logo = require('../assets/icons/logo.png');
+const padlock = require('../assets/icons/padlock.png');
+const tick = require('../assets/icons/tick.png');
+const home = require('../assets/icons/home.png');
+const account = require('../assets/icons/account.png');
+const list = require('../assets/icons/list.png');
+const note = require('../assets/icons/note.png');
+const plus = require('../assets/icons/plus.png');
+const emptyAvatar = require('../assets/icons/emptyavatar.png');
+const search = require('../assets/icons/search.png');
+const requiredassesment = require('../assets/icons/requiredassesment.png');
+const date = require('../assets/icons/date.png');
+const destination = require('../assets/icons/destination.png');
+const dollar = require('../assets/icons/dollar.png');
+const close = require('../assets/icons/close.png');
+const camera = require('../assets/icons/camera.png');
+const rightarrow = require('../assets/icons/rightarrow.png');
+const expenses = require('../assets/icons/expenses.png');
+const budget = require('../assets/icons/budget.png');
+const bublenote = require('../assets/icons/bublenote.png');
+const back = require('../assets/icons/back.png');
 
 export default {
     alarm,
@@ -46,4 +47,5 @@ export default {
     expenses,
     budget,
     bublenote,
+    back,
 };

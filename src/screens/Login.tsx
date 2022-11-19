@@ -43,7 +43,6 @@ const Login: FC<LoginProps> = ({ navigation }) => {
         <KeyboardAvoidingView style={loginStyle.login}>
             <LinearGradient colors={[MCOLORS.lime, MCOLORS.emerald]} style={loginStyle.login}>
                 <ScrollView>
-                    {/* Logo */}
                     <View style={loginStyle.logo}>
                         <Image source={icons.logo} />
                     </View>

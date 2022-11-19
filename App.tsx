@@ -6,6 +6,7 @@ import { SharedStateProvider } from './src/contexts';
 import Tabs from './src/navigation/tabs';
 import Login from './src/screens/Login';
 import SignUp from './src/screens/SignUp';
+import AddExpense from './src/screens/AddExpense';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,8 @@ const App = () => {
                     <Stack.Screen name="SignUp" component={SignUp} />
                     {/* Tabs */}
                     <Stack.Screen name="HomeScreen" component={Tabs} />
+
+                    <Stack.Screen name="AddExpense" component={AddExpense} />
                 </Stack.Navigator>
             </NavigationContainer>
         </SharedStateProvider>

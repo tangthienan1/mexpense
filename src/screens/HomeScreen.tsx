@@ -79,7 +79,6 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     ];
 
     const [expenseList, setExpenseList] = useState<HomeEntriesItemProps[]>(expenses);
-
     //ExpenseList max length is 8 for display on banner
     const sortedExpenseList = [...expenseList].sort((prev, next) => -prev.amount + next.amount);
     const uniqueExpenseListByValue = [
@@ -169,6 +168,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                             style.tripOptionWrapper,
                             { marginRight: MSIZES.padding },
                         ]}
+                        onPress={() => navigation.navigate('AddExpense')}
                     >
                         <Image source={icons.expenses} />
                         <Text style={{ fontWeight: 'bold' }}>Expenses</Text>

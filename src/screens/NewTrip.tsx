@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import moment from 'moment';
 import React, { FC, useState } from 'react';
 import {
     Image,
@@ -7,11 +8,15 @@ import {
     StyleSheet,
     Switch,
     Text,
-    TextInput,
     TouchableOpacity,
     View,
 } from 'react-native';
+import CustomDatePicker from '../components/CustomDatePicker';
+import InputTitle from '../components/InputTitle';
+import InputWithIcon from '../components/InputWithIcon';
+import SaveBtn from '../components/SaveBtn';
 import SelectDropDown from '../components/SelectDropDown';
+import { CustomTextInput, TextField } from '../components/TextInput';
 import WelcomeUser from '../components/WelcomeUser';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
 
@@ -38,43 +43,49 @@ type NewTripProps = {
 const NewTrip: FC<NewTripProps> = ({ navigation }) => {
     const [selectedTags, setSelectedTags] = useState<string | undefined>();
     const [isRequiredRiskAssessment, setIsRequiredRiskAssessment] = useState<boolean>(false);
-    console.log(selectedTags);
-    console.log(isRequiredRiskAssessment);
+    const [date, setDate] = useState(new Date());
+    const [open, setOpen] = useState(false);
+
+    console.log({ selectedTags });
 
     return (
         <SafeAreaView style={styles.newTripScreen}>
+            <CustomDatePicker open={open} date={date} setOpen={setOpen} setDate={setDate} />
+
             <ScrollView>
                 <View style={styles.newTripWrapper}>
                     <WelcomeUser />
+
                     <View style={styles.logo}>
                         <Image source={icons.logo} />
                     </View>
+
                     <View style={styles.form}>
                         <Text style={{ ...MFONTS.body1, textAlign: 'center' }}>New Trip</Text>
 
                         <Text style={styles.inputTile}>Trip name</Text>
-                        <TextInput style={styles.textInput} />
+                        <CustomTextInput />
 
                         <Text style={styles.inputTile}>Destination</Text>
-                        <TextInput style={styles.textInput} />
+                        <CustomTextInput />
 
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ flex: 1, marginRight: MSIZES.padding }}>
-                                <Text style={styles.inputTile}>Budget</Text>
-                                <View style={styles.inputWithIcon}>
-                                    <Image
-                                        style={{ marginRight: MSIZES.base }}
-                                        source={icons.dollar}
-                                    />
-                                    <TextInput style={{ flex: 1 }} />
-                                </View>
+                                <InputTitle title={'Location'} />
+                                <InputWithIcon icon={<Image source={icons.dollar} />} />
                             </View>
+
                             <View style={{ flex: 1 }}>
-                                <Text style={styles.inputTile}>Date</Text>
-                                <View style={styles.inputWithIcon}>
-                                    <TextInput style={{ flex: 1 }} />
-                                    <Image source={icons.date} />
-                                </View>
+                                <InputTitle title={'Date'} />
+                                <TouchableOpacity onPress={() => setOpen(true)}>
+                                    <InputWithIcon
+                                        editable={false}
+                                        defaultValue={moment(date)
+                                            .startOf('day')
+                                            .format('DD/MM/YYYY')}
+                                        icon={<Image source={icons.date} />}
+                                    />
+                                </TouchableOpacity>
                             </View>
                         </View>
 
@@ -82,7 +93,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
                         <SelectDropDown setSelected={setSelectedTags} data={Tags} />
 
                         <Text style={styles.inputTile}>Description</Text>
-                        <TextInput style={[styles.textInput, { height: 80 }]} />
+                        <TextField />
 
                         <Text style={styles.inputTile}>Required Risk Assessment</Text>
                         <View style={{ marginVertical: MSIZES.padding }}>
@@ -95,12 +106,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
                             />
                         </View>
 
-                        <TouchableOpacity
-                            style={styles.saveButton}
-                            onPress={() => navigation.navigate('TripList')}
-                        >
-                            <Text style={{ color: MCOLORS.white, ...MFONTS.h3 }}>Save</Text>
-                        </TouchableOpacity>
+                        <SaveBtn onPress={() => navigation.navigate('TripList')} />
                     </View>
                 </View>
             </ScrollView>
@@ -129,15 +135,6 @@ const styles = StyleSheet.create({
     inputTile: {
         marginTop: MSIZES.padding,
         ...MFONTS.body3,
-    },
-    textInput: {
-        marginVertical: MSIZES.padding2,
-        padding: MSIZES.padding,
-        height: MSIZES.padding * 4,
-
-        borderWidth: 1,
-        borderRadius: 10,
-        borderColor: MCOLORS.darkgray,
     },
     inputWithIcon: {
         flexDirection: 'row',

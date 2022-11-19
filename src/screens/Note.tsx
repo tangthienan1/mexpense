@@ -53,8 +53,6 @@ const Header = () => {
 const Note = () => {
     const [filteredNoteList, setFilterNoteList] = useState<NoteItemType[]>(Notes);
     const searchTextRef = useRef('');
-    console.log({ filteredNoteList });
-    console.log(searchTextRef);
 
     const handleSearchPress = () => {
         if (searchTextRef.current) {
@@ -88,7 +86,6 @@ const Note = () => {
         );
     };
     const renderItem: ListRenderItem<NoteItemType> = ({ item }) => {
-        console.log('asdf', item);
         return item ? (
             <View style={style.noteItemWrapper}>
                 <Text style={{ ...MFONTS.h4, marginVertical: MSIZES.padding }}>{item.date}</Text>

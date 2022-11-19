@@ -1,20 +1,17 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { SharedState, SharedStateContext } from './SharedStateContext';
 
 type SharedStateProviderProps = {
-    initialState?: Pick<SharedState, 'user' | 'currentTrip' | 'expenseList' | 'updateSharedState'>;
+    initialState?: Pick<SharedState, 'user' | 'currentScreen' | 'currentTrip' | 'expenseList'>;
     children: any;
 };
 
-export const SharedStateProvider: FunctionComponent<SharedStateProviderProps> = ({
-    children,
-    initialState,
-}) => {
+export const SharedStateProvider: FC<SharedStateProviderProps> = ({ children, initialState }) => {
     const [sharedState, setSharedState] = useState(() => initialState);
 
     const updateSharedState = (newState: SharedState) => {
-        setSharedState((prevSharedState) => ({
-            ...prevSharedState,
+        setSharedState((prevState) => ({
+            ...prevState,
             ...newState,
         }));
     };
