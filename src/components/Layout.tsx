@@ -6,9 +6,9 @@ type LayoutProps = {
     children: any;
 };
 const Layout: FC<LayoutProps> = ({ children }) => {
-    return <SafeAreaView style={style.layoutWrapper}>{children}</SafeAreaView>;
+    return <SafeAreaView style={styles.layoutWrapper}>{children}</SafeAreaView>;
 };
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     layoutWrapper: { flex: 1, backgroundColor: MCOLORS.white },
 });
 export default Layout;

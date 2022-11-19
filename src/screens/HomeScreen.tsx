@@ -88,7 +88,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
     function renderHeader() {
         return (
-            <View style={style.headerWrapper}>
+            <View style={styles.headerWrapper}>
                 <WelcomeUser />
             </View>
         );
@@ -128,7 +128,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 columnWrapperStyle={{ justifyContent: 'space-between' }}
                 keyExtractor={(item, index) => `_key${index.toString()}`}
                 renderItem={renderMajorItem}
-                style={style.bannerWrapper}
+                style={styles.bannerWrapper}
             />
         );
     }
@@ -164,8 +164,8 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity
                         style={[
-                            style.tripItemWrapper,
-                            style.tripOptionWrapper,
+                            styles.tripItemWrapper,
+                            styles.tripOptionWrapper,
                             { marginRight: MSIZES.padding },
                         ]}
                         onPress={() => navigation.navigate('AddExpense')}
@@ -173,14 +173,14 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                         <Image source={icons.expenses} />
                         <Text style={{ fontWeight: 'bold' }}>Expenses</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[style.tripItemWrapper, style.tripOptionWrapper]}>
+                    <TouchableOpacity style={[styles.tripItemWrapper, styles.tripOptionWrapper]}>
                         <Image style={{ height: 45 }} source={icons.budget} />
                         <Text style={{ fontWeight: 'bold' }}>Budget</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[
-                            style.tripItemWrapper,
-                            style.tripOptionWrapper,
+                            styles.tripItemWrapper,
+                            styles.tripOptionWrapper,
                             { marginLeft: MSIZES.padding },
                         ]}
                         onPress={() => navigation.navigate('Note')}
@@ -216,7 +216,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 {/* <View style={{ flexDirection: 'row' }}>
                     <Pressable
                         style={{
-                            ...style.recentEntriesCategoryItem,
+                            ...styles.recentEntriesCategoryItem,
                             backgroundColor:
                                 selectedTripTag === 'business' ? MCOLORS.blue : MCOLORS.gray,
                         }}
@@ -224,7 +224,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                     >
                         <View
                             style={{
-                                ...style.recentEntriesCategoryDot,
+                                ...styles.recentEntriesCategoryDot,
                                 backgroundColor:
                                     selectedTripTag === 'business'
                                         ? MCOLORS.emerald
@@ -235,7 +235,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                     </Pressable>
                     <Pressable
                         style={{
-                            ...style.recentEntriesCategoryItem,
+                            ...styles.recentEntriesCategoryItem,
                             backgroundColor:
                                 selectedTripTag === 'family' ? MCOLORS.blue : MCOLORS.gray,
                         }}
@@ -243,18 +243,18 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                     >
                         <View
                             style={{
-                                ...style.recentEntriesCategoryDot,
+                                ...styles.recentEntriesCategoryDot,
                                 backgroundColor:
                                     selectedTripTag === 'family'
                                         ? MCOLORS.emerald
                                         : MCOLORS.lightGray,
                             }}
                         />
-                        <Text style={style.recentEntriesCategoryText}>Family</Text>
+                        <Text style={styles.recentEntriesCategoryText}>Family</Text>
                     </Pressable>
                     <Pressable
                         style={{
-                            ...style.recentEntriesCategoryItem,
+                            ...styles.recentEntriesCategoryItem,
                             backgroundColor:
                                 selectedTripTag === 'personal' ? MCOLORS.blue : MCOLORS.gray,
                         }}
@@ -262,7 +262,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                     >
                         <View
                             style={{
-                                ...style.recentEntriesCategoryDot,
+                                ...styles.recentEntriesCategoryDot,
                                 backgroundColor:
                                     selectedTripTag === 'personal'
                                         ? MCOLORS.emerald
@@ -276,7 +276,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
         );
 
         const renderItem: ListRenderItem<HomeEntriesItemProps> = ({ item }) => (
-            <View style={style.recentEntriesItemWrapper}>
+            <View style={styles.recentEntriesItemWrapper}>
                 <View>
                     <Text style={{ ...MFONTS.h3 }}>{item.title}</Text>
                     <Text>{item.date}</Text>
@@ -301,7 +301,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
     return <Layout>{renderEntries()}</Layout>;
 };
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     recentEntriesItemWrapper: {
         marginVertical: MSIZES.base,
         flex: 1,

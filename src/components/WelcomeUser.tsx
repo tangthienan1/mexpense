@@ -6,16 +6,16 @@ const WelcomeUser: FC<{ navigation?: any }> = ({ navigation }) => {
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate('Account')}
-            style={style.WelcomeUserWrapper}
+            style={styles.WelcomeUserWrapper}
         >
-            <Image style={style.img} source={icons.emptyAvatar} />
+            <Image style={styles.img} source={icons.emptyAvatar} />
             <Text style={{ ...MFONTS.body2, marginHorizontal: MSIZES.padding }}>Hi Andy!</Text>
         </TouchableOpacity>
     );
 };
 
 export default WelcomeUser;
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     img: {
         width: 32,
         height: 32,

@@ -39,8 +39,7 @@ const Login: FC<LoginProps> = ({ navigation }) => {
     //     });
     // };
 
-    const [email, setEmail] = useState<string | undefined>();
-    console.log({ email });
+    const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
 
     const handleLogin = () => {};

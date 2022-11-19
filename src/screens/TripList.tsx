@@ -16,7 +16,7 @@ import { icons, MCOLORS, MSIZES } from '../consts';
 
 const Header = () => {
     return (
-        <View style={style.headerWrapper}>
+        <View style={styles.headerWrapper}>
             <WelcomeUser />
         </View>
     );
@@ -71,7 +71,7 @@ const TripList = () => {
         return (
             <View>
                 <Header />
-                <View style={[style.searchSection, style.border]}>
+                <View style={[styles.searchSection, styles.border]}>
                     <TextInput
                         defaultValue={searchTextRef.current}
                         placeholder="Search"
@@ -115,7 +115,7 @@ const TripList = () => {
     return <Layout>{renderNote()}</Layout>;
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     tripItemWrapper: {
         padding: MSIZES.padding * 1.5,
         marginVertical: MSIZES.padding,

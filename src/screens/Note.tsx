@@ -44,7 +44,7 @@ const Notes = [
 
 const Header = () => {
     return (
-        <View style={style.headerWrapper}>
+        <View style={styles.headerWrapper}>
             <WelcomeUser />
         </View>
     );
@@ -71,7 +71,7 @@ const Note = () => {
         return (
             <View>
                 <Header />
-                <View style={[style.searchSection, style.border]}>
+                <View style={[styles.searchSection, styles.border]}>
                     <TextInput
                         defaultValue={searchTextRef.current}
                         placeholder="Search"
@@ -87,9 +87,9 @@ const Note = () => {
     };
     const renderItem: ListRenderItem<NoteItemType> = ({ item }) => {
         return item ? (
-            <View style={style.noteItemWrapper}>
+            <View style={styles.noteItemWrapper}>
                 <Text style={{ ...MFONTS.h4, marginVertical: MSIZES.padding }}>{item.date}</Text>
-                <View style={[style.noteItem, style.border]}>
+                <View style={[styles.noteItem, styles.border]}>
                     <Text style={{ ...MFONTS.h4 }}>{item.title}</Text>
                     <Text style={{ ...MFONTS.body4, color: MCOLORS.darkgray }}>{item.content}</Text>
                 </View>
@@ -116,7 +116,7 @@ const Note = () => {
     return <Layout>{renderNote()}</Layout>;
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     noteItemWrapper: {
         marginVertical: MSIZES.padding,
     },

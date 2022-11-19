@@ -14,7 +14,7 @@ const TripSummary: FC<TripSummaryProps> = ({ title, date, tag, isRequiredRiskAss
     const [isShowRequiredAssessmentModal, setIsShowRequiredAssessmentModal] =
         useState<boolean>(false);
     return (
-        <View style={style.tripItemWrapper}>
+        <View style={styles.tripItemWrapper}>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -23,28 +23,28 @@ const TripSummary: FC<TripSummaryProps> = ({ title, date, tag, isRequiredRiskAss
                     setIsShowRequiredAssessmentModal(!isShowRequiredAssessmentModal);
                 }}
             >
-                <View style={style.centeredView}>
-                    <View style={style.modalView}>
-                        <Text style={style.modalText}>Required Risk Assessment</Text>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Required Risk Assessment</Text>
                         <Pressable
-                            style={[style.button, style.buttonClose]}
+                            style={[styles.button, styles.buttonClose]}
                             onPress={() =>
                                 setIsShowRequiredAssessmentModal(!isShowRequiredAssessmentModal)
                             }
                         >
-                            <Text style={style.textStyle}>Close</Text>
+                            <Text style={styles.textStyle}>Close</Text>
                         </Pressable>
                     </View>
                 </View>
             </Modal>
             <Text style={{ ...MFONTS.body2, marginBottom: MSIZES.padding }}>{title}</Text>
-            <View style={style.contentWrapper}>
-                <Text style={style.date}>Date: {date}</Text>
+            <View style={styles.contentWrapper}>
+                <Text style={styles.date}>Date: {date}</Text>
                 <Tag tag={tag} />
             </View>
             {isRequiredRiskAssessment && (
                 <TouchableOpacity
-                    style={style.requiredRiskAssessment}
+                    style={styles.requiredRiskAssessment}
                     onPress={() => setIsShowRequiredAssessmentModal(true)}
                 >
                     <Image source={icons.requiredassesment} />
@@ -56,7 +56,7 @@ const TripSummary: FC<TripSummaryProps> = ({ title, date, tag, isRequiredRiskAss
 
 export default TripSummary;
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     tripItemWrapper: {
         padding: MSIZES.padding * 1.5,
         marginVertical: MSIZES.padding,
