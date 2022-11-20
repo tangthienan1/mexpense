@@ -5,7 +5,9 @@ export type SharedState = {
     currentScreen?: any;
     currentTrip?: any;
     expenseList?: any;
-    updateSharedState?: (newState: SharedState) => void;
+    // Need to improve updateSharedState type, current ts see that possibly undefined
+    // updateSharedState?: (newState: SharedState) => void;
+    updateSharedState?: any;
 };
 
 export const SharedStateContext = createContext<SharedState>({});

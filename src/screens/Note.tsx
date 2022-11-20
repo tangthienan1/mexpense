@@ -42,15 +42,7 @@ const Notes = [
     },
 ];
 
-const Header = () => {
-    return (
-        <View style={styles.headerWrapper}>
-            <WelcomeUser />
-        </View>
-    );
-};
-
-const Note = () => {
+const Note = ({ navigation }) => {
     const [filteredNoteList, setFilterNoteList] = useState<NoteItemType[]>(Notes);
     const searchTextRef = useRef('');
 
@@ -65,6 +57,14 @@ const Note = () => {
         } else {
             setFilterNoteList(Notes);
         }
+    };
+
+    const Header = () => {
+        return (
+            <View style={styles.headerWrapper}>
+                <WelcomeUser navigation={navigation} />
+            </View>
+        );
     };
 
     const HeaderComponent = () => {

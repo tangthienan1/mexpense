@@ -14,14 +14,6 @@ import TripSummary, { TripSummaryProps } from '../components/TripSummary';
 import WelcomeUser from '../components/WelcomeUser';
 import { icons, MCOLORS, MSIZES } from '../consts';
 
-const Header = () => {
-    return (
-        <View style={styles.headerWrapper}>
-            <WelcomeUser />
-        </View>
-    );
-};
-
 const Trips = [
     {
         title: "Meeting Mr Cock (Apple's CEO)",
@@ -49,10 +41,17 @@ const Trips = [
     },
 ];
 
-const TripList = () => {
+const TripList = ({ navigation }) => {
     const [filteredTripList, setFilterTripList] = useState<TripSummaryProps[]>(Trips);
     const searchTextRef = useRef('');
-    console.log(searchTextRef);
+
+    const Header = () => {
+        return (
+            <View style={styles.headerWrapper}>
+                <WelcomeUser navigation={navigation} />
+            </View>
+        );
+    };
 
     const handleSearchPress = () => {
         if (searchTextRef.current) {

@@ -4,7 +4,6 @@ import {
     ActivityIndicator,
     Image,
     KeyboardAvoidingView,
-    Pressable,
     ScrollView,
     StyleSheet,
     Text,
@@ -39,13 +38,11 @@ const Login: FC<LoginProps> = ({ navigation }) => {
 
     const handleLogin = () => {
         setIsLoginProgress(true);
-        console.log({ email, password });
         if (email && password) {
             auth()
                 .signInWithEmailAndPassword(email, password)
-                .then(({ user }) => {
+                .then(() => {
                     setIsLoginProgress(false);
-                    console.log({ user });
                 })
                 .catch(() => {
                     setIsLoginProgress(false);

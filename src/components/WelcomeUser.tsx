@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { icons, MFONTS, MSIZES } from '../consts';
 
-const WelcomeUser: FC<{ navigation?: any }> = ({ navigation }) => {
+const WelcomeUser: FC<{ navigation: any }> = ({ navigation }) => {
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate('Account')}

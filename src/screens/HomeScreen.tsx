@@ -89,7 +89,7 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
     function renderHeader() {
         return (
             <View style={styles.headerWrapper}>
-                <WelcomeUser />
+                <WelcomeUser navigation={navigation} />
             </View>
         );
     }
@@ -213,65 +213,6 @@ const HomeScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 <View style={{ flex: 1 }}>
                     <Text style={{ ...MFONTS.h3 }}>Recent Entries</Text>
                 </View>
-                {/* <View style={{ flexDirection: 'row' }}>
-                    <Pressable
-                        style={{
-                            ...styles.recentEntriesCategoryItem,
-                            backgroundColor:
-                                selectedTripTag === 'business' ? MCOLORS.blue : MCOLORS.gray,
-                        }}
-                        onPress={() => setSelectedTripTag('business')}
-                    >
-                        <View
-                            style={{
-                                ...styles.recentEntriesCategoryDot,
-                                backgroundColor:
-                                    selectedTripTag === 'business'
-                                        ? MCOLORS.emerald
-                                        : MCOLORS.lightGray,
-                            }}
-                        />
-                        <Text style={{ paddingLeft: 3, color: MCOLORS.white }}>Business</Text>
-                    </Pressable>
-                    <Pressable
-                        style={{
-                            ...styles.recentEntriesCategoryItem,
-                            backgroundColor:
-                                selectedTripTag === 'family' ? MCOLORS.blue : MCOLORS.gray,
-                        }}
-                        onPress={() => setSelectedTripTag('family')}
-                    >
-                        <View
-                            style={{
-                                ...styles.recentEntriesCategoryDot,
-                                backgroundColor:
-                                    selectedTripTag === 'family'
-                                        ? MCOLORS.emerald
-                                        : MCOLORS.lightGray,
-                            }}
-                        />
-                        <Text style={styles.recentEntriesCategoryText}>Family</Text>
-                    </Pressable>
-                    <Pressable
-                        style={{
-                            ...styles.recentEntriesCategoryItem,
-                            backgroundColor:
-                                selectedTripTag === 'personal' ? MCOLORS.blue : MCOLORS.gray,
-                        }}
-                        onPress={() => setSelectedTripTag('personal')}
-                    >
-                        <View
-                            style={{
-                                ...styles.recentEntriesCategoryDot,
-                                backgroundColor:
-                                    selectedTripTag === 'personal'
-                                        ? MCOLORS.emerald
-                                        : MCOLORS.lightGray,
-                            }}
-                        />
-                        <Text style={{ paddingLeft: 3, color: MCOLORS.white }}>Personal</Text>
-                    </Pressable>
-                </View> */}
             </View>
         );
 

@@ -5,10 +5,11 @@ import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AccountOption from '../components/AccountOption';
 import { icons, MCOLORS, MFONTS, MSIZES } from '../consts';
+import { useAuth } from '../navigation/useAuth';
 
-type Props = {};
-
-const Account = (props: Props) => {
+const Account = () => {
+    const { user } = useAuth();
+    console.log('account', { user });
     const [isSignOut, setIsSignOut] = useState(false);
 
     const onSignOut = () => {
@@ -61,7 +62,7 @@ const Account = (props: Props) => {
             <View style={{ alignItems: 'center', marginBottom: MSIZES.padding2 * 5 }}>
                 <Text style={{ ...MFONTS.body2 }}>Ho Nguyen Phu Bao</Text>
                 <Text style={{ ...MFONTS.body2, color: MCOLORS.gray }}>(+84) 963 893 893</Text>
-                <Text style={{ ...MFONTS.body2, color: MCOLORS.gray }}>baohnp@fe.edu.vn</Text>
+                <Text style={{ ...MFONTS.body2, color: MCOLORS.gray }}>{user?.email}</Text>
             </View>
 
             <AccountOption title={'Edit Profile'} />

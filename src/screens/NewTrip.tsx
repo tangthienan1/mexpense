@@ -46,15 +46,13 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
 
-    console.log({ selectedTags });
-
     return (
         <SafeAreaView style={styles.newTripScreen}>
             <CustomDatePicker open={open} date={date} setOpen={setOpen} setDate={setDate} />
 
             <ScrollView>
                 <View style={styles.newTripWrapper}>
-                    <WelcomeUser />
+                    <WelcomeUser navigation={navigation} />
 
                     <View style={styles.logo}>
                         <Image source={icons.logo} />
@@ -72,7 +70,7 @@ const NewTrip: FC<NewTripProps> = ({ navigation }) => {
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ flex: 1, marginRight: MSIZES.padding }}>
                                 <InputTitle title={'Location'} />
-                                <InputWithIcon icon={<Image source={icons.dollar} />} />
+                                <InputWithIcon icon={<Image source={icons.destination} />} />
                             </View>
 
                             <View style={{ flex: 1 }}>
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
     },
     saveButton: {
         marginVertical: MSIZES.padding,
-        marginBottom: MSIZES.padding2 * 4,
+        marginBottom: MSIZES.padding2 * 9,
         height: 40,
         borderRadius: 20,
         backgroundColor: MCOLORS.emerald,

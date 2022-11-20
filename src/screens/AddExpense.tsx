@@ -33,7 +33,7 @@ const AddExpense = ({ navigation }) => {
                         }
                     />
 
-                    <InputTitle title={'Type'} />
+                    <InputTitle title={'Note'} />
                     <TextField />
 
                     <View style={{ flexDirection: 'row' }}>
